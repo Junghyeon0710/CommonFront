@@ -1,0 +1,13 @@
+﻿#pragma once
+
+#include "NativeGameplayTags.h"
+
+namespace FrontEndGameplayTags
+{
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_WidgetStack_Modal)	
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_WidgetStack_GameMenu)
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_WidgetStack_GameHud)
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_WidgetStack_Frontend)
+	
+	
+}
