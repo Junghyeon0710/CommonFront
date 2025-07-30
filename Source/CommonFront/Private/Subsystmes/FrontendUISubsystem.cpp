@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "CommonFront/Subsystems/FrontendUISubsystem.h"
+#include "Subsystems/FrontendUISubsystem.h"
 
 #include "CommonFront/FrontendDebugHelper.h"
 #include "Engine/AssetManager.h"

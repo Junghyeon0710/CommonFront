@@ -28,7 +28,8 @@ public class CommonFront : ModuleRules
 				"Core",
 				"GameplayTags",
 				"UMG",
-				"CommonUI"
+				"CommonUI",
+				"DeveloperSettings",
 			}
 			);
 			
