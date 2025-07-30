@@ -26,7 +26,10 @@ public class CommonFront : ModuleRules
 			new string[]
 			{
 				"Core",
-				// ... add other public dependencies that you statically link with here ...
+				"GameplayTags",
+				"UMG",
+				"CommonUI",
+				"DeveloperSettings",
 			}
 			);
 			
