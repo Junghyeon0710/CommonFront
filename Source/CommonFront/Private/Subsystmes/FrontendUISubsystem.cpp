@@ -44,7 +44,7 @@ void UFrontendUISubsystem::RegisterCreatedPrimaryLayout(UWidget_PrimaryLayout* I
 	Debug::Print(TEXT("Primary Layout Widget Stored"));
 }
 
-void UFrontendUISubsystem::PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStack,TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass, TFunction<void(EGAsyncPushWidgetState, UWidget_ActivatableBase*)>AysncPushStateCallback)
+void UFrontendUISubsystem::PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStack,TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass, TFunction<void(EAsyncPushWidgetState, UWidget_ActivatableBase*)>AysncPushStateCallback)
 {
 	check(!InSoftWidgetClass.IsNull())
 
@@ -62,11 +62,11 @@ void UFrontendUISubsystem::PushSoftWidgetToStackAynsc(const FGameplayTag& InWidg
 					LoadedWidgetClass,
 					[AysncPushStateCallback](UWidget_ActivatableBase& CreatedWidgetInstance)
 					{
-						AysncPushStateCallback(EGAsyncPushWidgetState::OnCreatedBeforePush, &CreatedWidgetInstance);
+						AysncPushStateCallback(EAsyncPushWidgetState::OnCreatedBeforePush, &CreatedWidgetInstance);
 					}
 				);
 
-				AysncPushStateCallback(EGAsyncPushWidgetState::AfterPush, CreatedWidget);
+				AysncPushStateCallback(EAsyncPushWidgetState::AfterPush, CreatedWidget);
 			}
 		)
 	);

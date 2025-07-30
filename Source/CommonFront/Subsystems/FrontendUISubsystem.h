@@ -10,7 +10,7 @@
 class UWidget_ActivatableBase;
 class UWidget_PrimaryLayout;
 
-enum class EGAsyncPushWidgetState : uint8
+enum class EAsyncPushWidgetState : uint8
 {
 	OnCreatedBeforePush,
 	AfterPush
@@ -35,7 +35,7 @@ public:
 	void RegisterCreatedPrimaryLayout(UWidget_PrimaryLayout* InCreateWidget);
 
 	
-	void PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStack, TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass, TFunction<void(EGAsyncPushWidgetState, UWidget_ActivatableBase*)> AysncPushStateCallback);
+	void PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStack, TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass, TFunction<void(EAsyncPushWidgetState, UWidget_ActivatableBase*)> AysncPushStateCallback);
 private:
 	UPROPERTY(Transient)
 	TObjectPtr<UWidget_PrimaryLayout> CreatedPrimaryLayout;
