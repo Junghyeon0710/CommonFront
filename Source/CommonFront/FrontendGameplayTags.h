@@ -11,5 +11,6 @@ namespace FrontEndGameplayTags
 	
 	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Widget_PressAnyKeyScreen)
 	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Widget_MainMenuScreen)
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Widget_ConfirmScreen)
 	
 }

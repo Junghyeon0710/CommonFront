@@ -3,10 +3,13 @@
 
 #include "Subsystems/FrontendUISubsystem.h"
 
+#include "FrontendFunctionLibrary.h"
 #include "CommonFront/FrontendDebugHelper.h"
+#include "CommonFront/FrontendGameplayTags.h"
 #include "Engine/AssetManager.h"
 #include "Widgets/CommonActivatableWidgetContainer.h"
 #include "Widgets/Widget_ActivatableBase.h"
+#include "Widgets/Widget_ConfirmScreen.h"
 #include "Widgets/Widget_PrimaryLayout.h"
 
 UFrontendUISubsystem* UFrontendUISubsystem::Get(const UObject* WorldContextObject)
@@ -70,4 +73,37 @@ void UFrontendUISubsystem::PushSoftWidgetToStackAynsc(const FGameplayTag& InWidg
 			}
 		)
 	);
+}
+
+void UFrontendUISubsystem::PushConfirmScreenToModalStackAynsc(EConfirmScreenType InScreenType, const FText& InScreenTitle, const FText& InScreenMsg, TFunction<void(EConfirmScreenButtonType)> ClickedButtonCallback)
+{
+	UConfirmScreenInfoObject* CreatedInfoObject = nullptr;
+	switch (InScreenType)
+	{
+	case EConfirmScreenType::Ok:
+		 CreatedInfoObject = UConfirmScreenInfoObject::CreateOkCancelScreen(InScreenTitle, InScreenMsg);
+		break;
+	case EConfirmScreenType::YesNo:
+		CreatedInfoObject = UConfirmScreenInfoObject::CreateYesNoScreen(InScreenTitle, InScreenMsg);
+		break;
+	case EConfirmScreenType::OkCancel:
+		CreatedInfoObject = UConfirmScreenInfoObject::CreateOkCancelScreen(InScreenTitle, InScreenMsg);
+		break;
+	default:
+		break;
+	}
+	
+	check(CreatedInfoObject);
+
+	PushSoftWidgetToStackAynsc(
+		FrontEndGameplayTags::Frontend_WidgetStack_Modal,
+		UFrontendFunctionLibrary::GetFrontendSoftWidgetClassByTag(FrontEndGameplayTags::Frontend_Widget_ConfirmScreen),
+		[CreatedInfoObject, ClickedButtonCallback](EAsyncPushWidgetState InPushState, UWidget_ActivatableBase* PushedWidget)
+		{
+			if (InPushState == EAsyncPushWidgetState::OnCreatedBeforePush)
+			{
+				UWidget_ConfirmScreen* CreatedConfirmScreen = CastChecked<UWidget_ConfirmScreen>(PushedWidget);
+				CreatedConfirmScreen->InitConfirmScreen(CreatedInfoObject, ClickedButtonCallback);
+			}
+		});
 }
