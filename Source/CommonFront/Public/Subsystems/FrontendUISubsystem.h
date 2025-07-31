@@ -7,6 +7,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "FrontendUISubsystem.generated.h"
 
+class UFrontendCommonButtonBase;
 class UWidget_ActivatableBase;
 class UWidget_PrimaryLayout;
 
@@ -15,9 +16,8 @@ enum class EAsyncPushWidgetState : uint8
 	OnCreatedBeforePush,
 	AfterPush
 };
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnButtonDescriptionTextUpdatedDelegate, UFrontendCommonButtonBase*, BoradcastingButton, FText, DescriptionText);
+
 UCLASS()
 class COMMONFRONT_API UFrontendUISubsystem : public UGameInstanceSubsystem
 {
@@ -33,9 +33,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void RegisterCreatedPrimaryLayout(UWidget_PrimaryLayout* InCreateWidget);
-
 	
 	void PushSoftWidgetToStackAynsc(const FGameplayTag& InWidgetStack, TSoftClassPtr<UWidget_ActivatableBase> InSoftWidgetClass, TFunction<void(EAsyncPushWidgetState, UWidget_ActivatableBase*)> AysncPushStateCallback);
+
+	UPROPERTY(BlueprintAssignable)
+	FOnButtonDescriptionTextUpdatedDelegate OnButtonDescriptionTextUpdated;
 private:
 	UPROPERTY(Transient)
 	TObjectPtr<UWidget_PrimaryLayout> CreatedPrimaryLayout;
