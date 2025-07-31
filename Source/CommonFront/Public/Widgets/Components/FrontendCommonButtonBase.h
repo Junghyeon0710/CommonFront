@@ -19,9 +19,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetButtonText(FText InText);
 
+
+
 private:
 
 	virtual void NativePreConstruct() override;
+
+	// 텍스트를 뭐를 쓰고 있는지 모르기 때문에 알려줘야함
+	virtual void NativeOnCurrentTextStyleChanged() override; 
 		
 	UPROPERTY(meta = (BindWidgetOptional))
 	TObjectPtr<UCommonTextBlock> CommonTextBlock_ButtonText;
