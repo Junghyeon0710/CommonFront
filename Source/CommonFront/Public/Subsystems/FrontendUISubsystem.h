@@ -16,7 +16,7 @@ enum class EAsyncPushWidgetState : uint8
 	OnCreatedBeforePush,
 	AfterPush
 };
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnButtonDescriptionTextUpdatedDelegate, UFrontendCommonButtonBase*, BoradcastingButton, FText, DescriptionText);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonDescriptionTextUpdatedDelegate, UFrontendCommonButtonBase*, BoradcastingButton, FText, DescriptionText);
 
 UCLASS()
 class COMMONFRONT_API UFrontendUISubsystem : public UGameInstanceSubsystem
