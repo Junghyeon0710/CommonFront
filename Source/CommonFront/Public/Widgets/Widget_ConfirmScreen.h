@@ -50,6 +50,8 @@ class COMMONFRONT_API UWidget_ConfirmScreen : public UWidget_ActivatableBase
 {
 	GENERATED_BODY()
 
+public:
+	void InitConfirmScreen(UConfirmScreenInfoObject* InScreenInfoObject, TFunction<void(EConfirmScreenButtonType)> ClickedButtonCallback );
 private:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UCommonTextBlock> CommonTextBlock_Title;

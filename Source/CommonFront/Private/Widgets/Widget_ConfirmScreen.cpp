@@ -3,6 +3,11 @@
 
 #include "Widgets/Widget_ConfirmScreen.h"
 
+#include "CommonTextBlock.h"
+#include "ICommonInputModule.h"
+#include "Components/DynamicEntryBox.h"
+#include "Widgets/Components/FrontendCommonButtonBase.h"
+
 UConfirmScreenInfoObject* UConfirmScreenInfoObject::CreateOkScreen(const FText& InScreenTitle, const FText& InScreenMsg)
 {
 	UConfirmScreenInfoObject* InfoObject = NewObject<UConfirmScreenInfoObject>();
@@ -56,4 +61,58 @@ UConfirmScreenInfoObject* UConfirmScreenInfoObject::CreateOkCancelScreen(const F
 	InfoObject->AvailableScreenButtons.Add(CancelButtonInfo);
 
 	return InfoObject;
+}
+
+void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreenInfoObject, TFunction<void(EConfirmScreenButtonType)> ClickedButtonCallback)
+{
+	check(InScreenInfoObject && CommonTextBlock_Title && CommonTextBlock_Message && DynamicEntryBox_Buttons);
+
+	CommonTextBlock_Title->SetText(InScreenInfoObject->ScreenTitle);
+	CommonTextBlock_Message->SetText(InScreenInfoObject->ScreenMessage);
+
+	if (DynamicEntryBox_Buttons->GetNumEntries() != 0)
+	{
+		DynamicEntryBox_Buttons->Reset<UFrontendCommonButtonBase>(
+			[](UFrontendCommonButtonBase& ExistingButton)
+			{
+				ExistingButton.OnClicked().Clear();
+			}
+		);
+	}
+
+	check(InScreenInfoObject->AvailableScreenButtons.IsEmpty());
+
+	for (const FConfirmScreenButtonInfo& AvailableButtonInfo : InScreenInfoObject->AvailableScreenButtons)
+	{
+		FDataTableRowHandle InputActionRowHandle;
+		switch (AvailableButtonInfo.ConfirmScreenButtonType)
+		{
+		case EConfirmScreenButtonType::Confirmed:
+				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultClickAction();
+				break;
+		case EConfirmScreenButtonType::Cancelled:
+				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultBackAction();
+				break;
+		case EConfirmScreenButtonType::Closed:
+				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultBackAction();
+			break;
+			default:
+				break;
+		}
+		
+		UFrontendCommonButtonBase* AddedButton = DynamicEntryBox_Buttons->CreateEntry<UFrontendCommonButtonBase>();
+		AddedButton->SetButtonText(AvailableButtonInfo.ButtonTextToDisplay);
+		AddedButton->SetTriggeredInputAction(InputActionRowHandle);
+		AddedButton->OnClicked().AddLambda([ClickedButtonCallback, AvailableButtonInfo, this]()
+		{
+			ClickedButtonCallback(AvailableButtonInfo.ConfirmScreenButtonType);
+
+			DeactivateWidget();
+		});
+	}
+
+	if (DynamicEntryBox_Buttons->GetNumEntries() != 0)
+	{
+		DynamicEntryBox_Buttons->GetAllEntries().Last()->SetFocus();
+	}
 }
