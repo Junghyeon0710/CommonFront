@@ -80,7 +80,7 @@ void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreen
 		);
 	}
 
-	check(InScreenInfoObject->AvailableScreenButtons.IsEmpty());
+	check(!InScreenInfoObject->AvailableScreenButtons.IsEmpty());
 
 	for (const FConfirmScreenButtonInfo& AvailableButtonInfo : InScreenInfoObject->AvailableScreenButtons)
 	{

@@ -81,7 +81,7 @@ void UFrontendUISubsystem::PushConfirmScreenToModalStackAynsc(EConfirmScreenType
 	switch (InScreenType)
 	{
 	case EConfirmScreenType::Ok:
-		 CreatedInfoObject = UConfirmScreenInfoObject::CreateOkCancelScreen(InScreenTitle, InScreenMsg);
+		 CreatedInfoObject = UConfirmScreenInfoObject::CreateOkScreen(InScreenTitle, InScreenMsg);
 		break;
 	case EConfirmScreenType::YesNo:
 		CreatedInfoObject = UConfirmScreenInfoObject::CreateYesNoScreen(InScreenTitle, InScreenMsg);
