@@ -13,5 +13,18 @@ UCLASS(Abstract, BlueprintType, meta = (DisableNaiveTick))
 class COMMONFRONT_API UWidget_OptionsScreen : public UWidget_ActivatableBase
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void NativeOnInitialized() override;
 	
+private:
+	
+	void OnResetBoundActionTriggered();
+	void OnBackBoundActionTriggered();
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Frontend Option Screen", meta = (RowType = "/Script/CommonUI.CommonInputActionDataBase"))
+	FDataTableRowHandle ResetAction;
+
+	FUIActionBindingHandle ResetActionHandle;
 };
+
