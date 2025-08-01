@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/Options/DataObjects/ListDataObject_Base.h"
-#include "ListDataObject_Base_Collection.generated.h"
+#include "ListDataObject_Collection.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class COMMONFRONT_API UListDataObject_Base_Collection : public UListDataObject_Base
+class COMMONFRONT_API UListDataObject_Collection : public UListDataObject_Base
 {
 	GENERATED_BODY()
 
@@ -22,5 +22,5 @@ public:
 	
 private:
 	UPROPERTY(Transient)
-	TArray<UListDataObject_Base*> ChildListDataArray;;
+	TArray<UListDataObject_Base*> ChildListDataArray;
 };
