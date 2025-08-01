@@ -22,8 +22,14 @@ public:
 	LIST_DATA_ACCESSOR(FText, DisabledRichText);
 	LIST_DATA_ACCESSOR(TSoftObjectPtr<UTexture2D>, SoftDescriptionImage);
 	LIST_DATA_ACCESSOR(UListDataObject_Base*, ParentData);
+
+	void InitDataObject();
 	
-	virtual TArray<UListDataObject_Base*> GetChildeSettingData() const { return TArray<UListDataObject_Base*>(); }
+	virtual TArray<UListDataObject_Base*> GetAllChildeListData() const { return TArray<UListDataObject_Base*>(); }
+	virtual bool HasAnyChildeListData() const { return false; }
+
+protected:
+	virtual void OnDataObjectInitialized();
 	
 private:
 	FName DataID;
