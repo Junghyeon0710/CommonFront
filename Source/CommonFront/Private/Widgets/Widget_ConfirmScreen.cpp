@@ -87,9 +87,6 @@ void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreen
 		FDataTableRowHandle InputActionRowHandle;
 		switch (AvailableButtonInfo.ConfirmScreenButtonType)
 		{
-		case EConfirmScreenButtonType::Confirmed:
-				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultClickAction();
-				break;
 		case EConfirmScreenButtonType::Cancelled:
 				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultBackAction();
 				break;
@@ -102,7 +99,8 @@ void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreen
 		
 		UFrontendCommonButtonBase* AddedButton = DynamicEntryBox_Buttons->CreateEntry<UFrontendCommonButtonBase>();
 		AddedButton->SetButtonText(AvailableButtonInfo.ButtonTextToDisplay);
-		AddedButton->SetTriggeredInputAction(InputActionRowHandle);
+	//	AddedButton->SetTriggeredInputAction(InputActionRowHandle); //버튼을 눌렀을 때 어떤 키를 누른 것처럼 처리할지 정함
+		AddedButton->SetTriggeringInputAction(InputActionRowHandle); // 	어떤 키(입력)가 이 버튼을 눌리게 할지 정함 ex (게임패드 O 버튼 누르면 UI 버튼 작동
 		AddedButton->OnClicked().AddLambda([ClickedButtonCallback, AvailableButtonInfo, this]()
 		{
 			ClickedButtonCallback(AvailableButtonInfo.ConfirmScreenButtonType);
