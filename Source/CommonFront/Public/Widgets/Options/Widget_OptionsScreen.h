@@ -8,6 +8,7 @@
 
 class UFrontendTabListWidgetBase;
 class UOptionsDataRegistry;
+class UFrontendCommonListView;
 /**
  * 
  */
@@ -30,8 +31,10 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UFrontendTabListWidgetBase> TabListWidget_OptionsTabs;
-	
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UFrontendCommonListView> CommonListView_OptionsList;
+	
 	UPROPERTY(Transient)
 	TObjectPtr<UOptionsDataRegistry> CreatedOwningDataRegistry;
 	
