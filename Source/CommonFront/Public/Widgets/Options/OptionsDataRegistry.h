@@ -15,7 +15,7 @@ class COMMONFRONT_API UOptionsDataRegistry : public UObject
 
 public:
 	//OptionsDataRegistry가 생성된 직후, 옵션 화면에서 이 함수가 호출됩니다.
-	void IniOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer);
+	void InitOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer);
 
 	const TArray<UListDataObject_Collection*>& GetRegisteredOptionsTabCollections() const {return RegisteredOptionsTabCollections; }
 private:

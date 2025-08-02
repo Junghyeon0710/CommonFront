@@ -5,7 +5,7 @@
 
 #include "Widgets/Options/DataObjects/ListDataObject_Collection.h"
 
-void UOptionsDataRegistry::IniOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer)
+void UOptionsDataRegistry::InitOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer)
 {
 	InitGameplayCollectionTab();
 	InitAudioCollectionTab();

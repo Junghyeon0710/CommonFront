@@ -6,6 +6,8 @@
 #include "Widgets/Widget_ActivatableBase.h"
 #include "Widget_OptionsScreen.generated.h"
 
+class UFrontendTabListWidgetBase;
+class UOptionsDataRegistry;
 /**
  * 
  */
@@ -16,11 +18,19 @@ class COMMONFRONT_API UWidget_OptionsScreen : public UWidget_ActivatableBase
 
 protected:
 	virtual void NativeOnInitialized() override;
-	
+	virtual void NativeOnActivated() override;
 private:
+	UOptionsDataRegistry* GetOrCreateDataRegistry();
 	
 	void OnResetBoundActionTriggered();
 	void OnBackBoundActionTriggered();
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UFrontendTabListWidgetBase> TabListWidget_OptionsTabs;
+	
+
+	UPROPERTY(Transient)
+	TObjectPtr<UOptionsDataRegistry> CreatedOwningDataRegistry;
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Frontend Option Screen", meta = (RowType = "/Script/CommonUI.CommonInputActionDataBase"))
 	FDataTableRowHandle ResetAction;

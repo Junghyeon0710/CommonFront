@@ -15,6 +15,9 @@ class COMMONFRONT_API UFrontendTabListWidgetBase : public UCommonTabListWidgetBa
 {
 	GENERATED_BODY()
 
+public:
+	void RequestRegisterTab(const FName& InTabId, const FText& InTabDisplayName);
+	
 private:
 #if WITH_EDITOR
 	virtual void ValidateCompiledDefaults(class IWidgetCompilerLog& CompileLog) const override;

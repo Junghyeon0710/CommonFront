@@ -7,6 +7,10 @@
 #include "Widgets/Components/FrontendCommonButtonBase.h"
 
 #if WITH_EDITOR
+void UFrontendTabListWidgetBase::RequestRegisterTab(const FName& InTabId, const FText& InTabDisplayName)
+{
+}
+
 void UFrontendTabListWidgetBase::ValidateCompiledDefaults(class IWidgetCompilerLog& CompileLog) const
 {
 	Super::ValidateCompiledDefaults(CompileLog);
