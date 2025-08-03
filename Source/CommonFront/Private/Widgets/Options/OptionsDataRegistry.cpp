@@ -4,6 +4,7 @@
 #include "Widgets/Options/OptionsDataRegistry.h"
 
 #include "Widgets/Options/DataObjects/ListDataObject_Collection.h"
+#include "Widgets/Options/DataObjects/ListDataObject_String.h"
 
 void UOptionsDataRegistry::InitOptionsDataRegistry(ULocalPlayer* InOwningLocalPlayer)
 {
@@ -13,11 +14,43 @@ void UOptionsDataRegistry::InitOptionsDataRegistry(ULocalPlayer* InOwningLocalPl
 	InitControlCollectionTab();
 }
 
+TArray<UListDataObject_Base*> UOptionsDataRegistry::GetListSourceItemsBySelectedTabID(const FName& InSelectedTabID) const
+{
+	UListDataObject_Collection* const* FoundTabCollectionPtr = RegisteredOptionsTabCollections.FindByPredicate([InSelectedTabID](const UListDataObject_Collection* AvailableTabCollection)
+	{
+		return AvailableTabCollection->GetDataID() == InSelectedTabID;
+	});
+
+	checkf(FoundTabCollectionPtr,TEXT("No Valid tab found under the ID %s"),*InSelectedTabID.ToString());
+
+	UListDataObject_Collection* FoundTabCollection = *FoundTabCollectionPtr;
+	
+	return FoundTabCollection->GetAllChildeListData();
+}
+
 void UOptionsDataRegistry::InitGameplayCollectionTab()
 {
 	UListDataObject_Collection* GameplayTabCollection = NewObject<UListDataObject_Collection>();
 	GameplayTabCollection->SetDataID(FName("GameplayTabCollection"));
 	GameplayTabCollection->SetDataDisplayName(FText::FromString(TEXT("Gameplay")));
+
+	{
+		UListDataObject_String* GameDifficulty = NewObject<UListDataObject_String>(GameplayTabCollection);
+		GameDifficulty->SetDataID(FName("GameDifficulty"));
+		GameDifficulty->SetDataDisplayName(FText::FromString(TEXT("Difficulty")));
+
+		GameplayTabCollection->AddChildListData(GameDifficulty);
+	}
+
+	//Test Item
+	{
+		UListDataObject_String* TestItem = NewObject<UListDataObject_String>(GameplayTabCollection);
+		TestItem->SetDataID(FName("TestItem"));
+		TestItem->SetDataDisplayName(FText::FromString(TEXT("Test Item")));
+	
+		GameplayTabCollection->AddChildListData(TestItem);
+	}
+	
 
 	RegisteredOptionsTabCollections.Add(GameplayTabCollection);
 }

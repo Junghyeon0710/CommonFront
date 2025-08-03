@@ -6,6 +6,7 @@
 #include "ICommonInputModule.h"
 #include "CommonFront/FrontendDebugHelper.h"
 #include "Input/CommonUIInputTypes.h"
+#include "Widgets/Components/FrontendCommonListView.h"
 #include "Widgets/Components/FrontendTabListWidgetBase.h"
 #include "Widgets/Options/OptionsDataRegistry.h"
 #include "Widgets/Options/DataObjects/ListDataObject_Collection.h"
@@ -70,5 +71,14 @@ void UWidget_OptionsScreen::OnBackBoundActionTriggered()
 
 void UWidget_OptionsScreen::OnOptionsTabSelected(FName TabID)
 {
-	Debug::Print(TEXT("OnOptionsTabSelected Tab ID: ") + TabID.ToString());
+	TArray<UListDataObject_Base*> FoundListSourceItems = GetOrCreateDataRegistry()->GetListSourceItemsBySelectedTabID(TabID);
+
+	CommonListView_OptionsList->SetListItems(FoundListSourceItems);
+	CommonListView_OptionsList->RequestRefresh(); // 옵션 새로고침
+
+	if (CommonListView_OptionsList->GetNumItems() != 0)
+	{
+		CommonListView_OptionsList->NavigateToIndex(0); //첫번쨰 항복으로 이동
+		CommonListView_OptionsList->SetSelectedIndex(0); // 첫번짹 아이템 선택
+	}
 }
