@@ -7,6 +7,7 @@
 #include "Blueprint/IUserObjectListEntry.h"
 #include "Widget_ListEntry_Base.generated.h"
 
+class UListDataObject_Base;
 class UCommonTextBlock;
 /**
  * 
@@ -20,6 +21,8 @@ protected:
 	// Begin IUserObjectListEntry Interface
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	//~ End IUserObjectListEntry Interface
+
+	virtual  void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject);
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
