@@ -25,8 +25,8 @@ public:
 
 	void InitDataObject();
 	
-	virtual TArray<UListDataObject_Base*> GetAllChildeListData() const { return TArray<UListDataObject_Base*>(); }
-	virtual bool HasAnyChildeListData() const { return false; }
+	virtual TArray<UListDataObject_Base*> GetAllChildListData() const { return TArray<UListDataObject_Base*>(); }
+	virtual bool HasAnyChildListData() const { return false; }
 
 protected:
 	virtual void OnDataObjectInitialized();

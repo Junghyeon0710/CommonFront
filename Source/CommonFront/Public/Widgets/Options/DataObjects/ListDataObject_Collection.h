@@ -17,8 +17,8 @@ class COMMONFRONT_API UListDataObject_Collection : public UListDataObject_Base
 public:
 	void AddChildListData(UListDataObject_Base* InChildListData);
 	
-	virtual TArray<UListDataObject_Base*> GetAllChildeListData() const; 
-	virtual bool HasAnyChildeListData() const;
+	virtual TArray<UListDataObject_Base*> GetAllChildListData() const; 
+	virtual bool HasAnyChildListData() const;
 	
 private:
 	UPROPERTY(Transient)

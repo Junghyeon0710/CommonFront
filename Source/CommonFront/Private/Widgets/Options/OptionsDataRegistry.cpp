@@ -25,7 +25,7 @@ TArray<UListDataObject_Base*> UOptionsDataRegistry::GetListSourceItemsBySelected
 
 	UListDataObject_Collection* FoundTabCollection = *FoundTabCollectionPtr;
 	
-	return FoundTabCollection->GetAllChildeListData();
+	return FoundTabCollection->GetAllChildListData();
 }
 
 void UOptionsDataRegistry::InitGameplayCollectionTab()

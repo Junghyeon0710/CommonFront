@@ -28,8 +28,16 @@ void UWidget_ListEntry_String::OnOwningListItemObjectSet(UListDataObject_Base* I
 
 void UWidget_ListEntry_String::OnPreviousOptionButtonClicked()
 {
+	if (CachedOwningStringDataObject)
+	{
+		CachedOwningStringDataObject->BackToPreviousOption();
+	}
 }
 
 void UWidget_ListEntry_String::OnNextOptionButtonClicked()
 {
+	if (CachedOwningStringDataObject)
+	{
+		CachedOwningStringDataObject->AdvanceToNextOption();
+	}
 }
