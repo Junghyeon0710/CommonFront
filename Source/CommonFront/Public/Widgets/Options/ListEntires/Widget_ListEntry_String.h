@@ -17,12 +17,12 @@ class COMMONFRONT_API UWidget_ListEntry_String : public UWidget_ListEntry_Base
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
-	TObjectPtr<UFrontendCommonButtonBase> CommonButton_Decrease;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
+	TObjectPtr<UFrontendCommonButtonBase> CommonButton_PreviousOption;
 
-	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UFrontendCommonRotator> CommonRotator_AvailableOptions;
 
-	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
-	TObjectPtr<UFrontendCommonButtonBase> CommonButton_Increase;
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
+	TObjectPtr<UFrontendCommonButtonBase> CommonButton_NextOption;
 };
