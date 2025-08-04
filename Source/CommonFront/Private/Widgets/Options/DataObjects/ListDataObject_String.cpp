@@ -32,7 +32,13 @@ void UListDataObject_String::AdvanceToNextOption()
 
 	TrySetDisplayTextFromStringValue(CurrentStringValue);
 
-	NotifyListDataModified(this);
+	if (DataDynamicSetter)
+	{
+		DataDynamicSetter->SetValueFromString(CurrentStringValue);
+
+		NotifyListDataModified(this);
+	}
+	
 }
 
 void UListDataObject_String::BackToPreviousOption()
@@ -57,7 +63,13 @@ void UListDataObject_String::BackToPreviousOption()
 	}
 
 	TrySetDisplayTextFromStringValue(CurrentStringValue);
-	NotifyListDataModified(this);
+
+	if (DataDynamicSetter)
+	{
+		DataDynamicSetter->SetValueFromString(CurrentStringValue);
+
+		NotifyListDataModified(this);
+	}
 	
 }
 
@@ -68,6 +80,14 @@ void UListDataObject_String::OnDataObjectInitialized()
 		CurrentStringValue = AvailableOptionsStringArray[0];
 	}
 
+	if (DataDynamicGetter)
+	{
+		if (!DataDynamicGetter->GetValueAsString().IsEmpty())
+		{
+			CurrentStringValue = DataDynamicGetter->GetValueAsString();
+		}
+	}
+	
 	if (!TrySetDisplayTextFromStringValue(CurrentStringValue))
 	{
 		CurrentDisplayText = FText::FromString(TEXT("Invalid Option"));
