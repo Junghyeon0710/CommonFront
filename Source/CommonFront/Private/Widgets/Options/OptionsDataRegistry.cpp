@@ -40,6 +40,7 @@ void UOptionsDataRegistry::InitGameplayCollectionTab()
 		GameDifficulty->SetDataDisplayName(FText::FromString(TEXT("Difficulty")));
 
 		GameplayTabCollection->AddChildListData(GameDifficulty);
+		
 	}
 
 	//Test Item
