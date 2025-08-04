@@ -13,5 +13,13 @@ UCLASS()
 class COMMONFRONT_API UListDataObject_String : public UListDataObject_Value
 {
 	GENERATED_BODY()
+public:
+	void AddDynamicOptions(const FString& InStringValue, const FText& InDisplayText);
 	
+protected:
+	FString CurrentStringValue;
+	FText CurrentDisplayTextValue;
+	
+	TArray<FString> AvailableOptionsStringArray;
+	TArray<FText> AvailableOptionsTextArray;
 };

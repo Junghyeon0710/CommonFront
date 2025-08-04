@@ -38,7 +38,12 @@ void UOptionsDataRegistry::InitGameplayCollectionTab()
 		UListDataObject_String* GameDifficulty = NewObject<UListDataObject_String>(GameplayTabCollection);
 		GameDifficulty->SetDataID(FName("GameDifficulty"));
 		GameDifficulty->SetDataDisplayName(FText::FromString(TEXT("Difficulty")));
-
+		GameDifficulty->AddDynamicOptions(TEXT("Easy"), FText::FromString(TEXT("Easy")));
+		GameDifficulty->AddDynamicOptions(TEXT("Normal"), FText::FromString(TEXT("Normal")));
+		GameDifficulty->AddDynamicOptions(TEXT("Hard"), FText::FromString(TEXT("Hard")));
+		GameDifficulty->AddDynamicOptions(TEXT("VeryHard"), FText::FromString(TEXT("VeryHard")));
+		
+		
 		GameplayTabCollection->AddChildListData(GameDifficulty);
 		
 	}
