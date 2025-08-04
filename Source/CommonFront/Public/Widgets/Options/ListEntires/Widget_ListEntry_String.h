@@ -22,6 +22,7 @@ protected:
 	
 	
 	virtual void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject) override;
+	virtual void OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedData, EOptionsListDataModifyReason ModifyReason) override;
 
 private:
 	void OnPreviousOptionButtonClicked();

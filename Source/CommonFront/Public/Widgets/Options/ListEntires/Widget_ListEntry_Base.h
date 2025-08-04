@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "CommonUserWidget.h"
 #include "Blueprint/IUserObjectListEntry.h"
+#include "FrontendTypes/FrontendEnumTypes.h"
 #include "Widget_ListEntry_Base.generated.h"
 
 class UListDataObject_Base;
@@ -23,6 +24,8 @@ protected:
 	//~ End IUserObjectListEntry Interface
 
 	virtual  void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject);
+
+	virtual  void OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedData, EOptionsListDataModifyReason ModifyReason);
 
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
