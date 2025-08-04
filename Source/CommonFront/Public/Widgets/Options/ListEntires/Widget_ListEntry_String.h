@@ -18,9 +18,15 @@ class COMMONFRONT_API UWidget_ListEntry_String : public UWidget_ListEntry_Base
 	GENERATED_BODY()
 
 protected:
+	virtual void NativeOnInitialized() override;
+	
+	
 	virtual void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject) override;
 
 private:
+	void OnPreviousOptionButtonClicked();
+	void OnNextOptionButtonClicked();
+	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UFrontendCommonButtonBase> CommonButton_PreviousOption;
 

@@ -3,8 +3,17 @@
 
 #include "Widgets/Options/ListEntires/Widget_ListEntry_String.h"
 
+#include "Widgets/Components/FrontendCommonButtonBase.h"
 #include "Widgets/Components/FrontendCommonRotator.h"
 #include "Widgets/Options/DataObjects/ListDataObject_String.h"
+
+void UWidget_ListEntry_String::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+
+	CommonButton_PreviousOption->OnClicked().AddUObject(this, &ThisClass::OnPreviousOptionButtonClicked);
+	CommonButton_NextOption->OnClicked().AddUObject(this, &ThisClass::OnNextOptionButtonClicked);
+}
 
 void UWidget_ListEntry_String::OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject)
 {
@@ -15,4 +24,12 @@ void UWidget_ListEntry_String::OnOwningListItemObjectSet(UListDataObject_Base* I
 	
 	CommonRotator_AvailableOptions->PopulateTextLabels(CachedOwningStringDataObject->GetAvailableOptionsTextArray());
 	CommonRotator_AvailableOptions->SetSelectedOptionByText(CachedOwningStringDataObject->GetCurrentDisplayText());
+}
+
+void UWidget_ListEntry_String::OnPreviousOptionButtonClicked()
+{
+}
+
+void UWidget_ListEntry_String::OnNextOptionButtonClicked()
+{
 }
