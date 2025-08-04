@@ -13,5 +13,7 @@ UCLASS(Abstract, BlueprintType, meta = (DisableNaiveTick))
 class COMMONFRONT_API UFrontendCommonRotator : public UCommonRotator
 {
 	GENERATED_BODY()
-	
+
+public:
+	void SetSelectedOptionByText(const FText& InTextOption);
 };

@@ -6,6 +6,7 @@
 #include "Widgets/Options/ListEntires/Widget_ListEntry_Base.h"
 #include "Widget_ListEntry_String.generated.h"
 
+class UListDataObject_String;
 class UFrontendCommonRotator;
 class UFrontendCommonButtonBase;
 /**
@@ -16,6 +17,9 @@ class COMMONFRONT_API UWidget_ListEntry_String : public UWidget_ListEntry_Base
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject) override;
+
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UFrontendCommonButtonBase> CommonButton_PreviousOption;
@@ -25,4 +29,7 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = "true"))
 	TObjectPtr<UFrontendCommonButtonBase> CommonButton_NextOption;
+
+	UPROPERTY(Transient)
+	TObjectPtr<UListDataObject_String> CachedOwningStringDataObject;
 };
