@@ -30,7 +30,8 @@ public class CommonFront : ModuleRules
 				"UMG",
 				"CommonUI",
 				"DeveloperSettings",
-				"CommonInput"
+				"CommonInput",
+				"InputCore"
 			}
 			);
 			
