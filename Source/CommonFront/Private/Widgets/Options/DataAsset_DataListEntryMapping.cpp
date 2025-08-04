@@ -5,7 +5,7 @@
 
 #include "Widgets/Options/DataObjects/ListDataObject_Base.h"
 
-TSubclassOf<UWidget_ListEntry_Base> UDataAsset_DataListEntryMapping::FindEntryWidgetClassByDataObject( UListDataObject_Base* InDataObject)
+TSubclassOf<UWidget_ListEntry_Base> UDataAsset_DataListEntryMapping::FindEntryWidgetClassByDataObject(UListDataObject_Base* InDataObject)
 {
 	check(InDataObject);
 
