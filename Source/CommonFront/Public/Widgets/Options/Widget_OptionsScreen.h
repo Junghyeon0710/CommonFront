@@ -20,6 +20,7 @@ class COMMONFRONT_API UWidget_OptionsScreen : public UWidget_ActivatableBase
 protected:
 	virtual void NativeOnInitialized() override;
 	virtual void NativeOnActivated() override;
+	virtual void NativeOnDeactivated() override;
 private:
 	UOptionsDataRegistry* GetOrCreateDataRegistry();
 	
