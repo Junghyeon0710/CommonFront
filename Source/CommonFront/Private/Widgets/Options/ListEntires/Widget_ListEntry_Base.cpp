@@ -3,6 +3,7 @@
 
 #include "Widgets/Options/ListEntires/Widget_ListEntry_Base.h"
 
+#include "CommonInputSubsystem.h"
 #include "CommonTextBlock.h"
 #include "Components/ListView.h"
 #include "Components/ListViewBase.h"
@@ -11,6 +12,23 @@
 void UWidget_ListEntry_Base::NativeOnListEntryWidgetHovered(bool bWasHovered)
 {
 	K2_OnListEntryWidgetHovered(bWasHovered, IsListItemSelected());
+}
+
+FReply UWidget_ListEntry_Base::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)
+{
+	UCommonInputSubsystem* CommonInputSubsystem = GetInputSubsystem();
+	if (CommonInputSubsystem && CommonInputSubsystem->GetCurrentInputType() == ECommonInputType::Gamepad)
+	{
+		if (UWidget* WidgetToFocus = K2_GetWidgetToFocusForGamepad())
+		{
+			if (TSharedPtr<SWidget> SlateWidgetToFocus = WidgetToFocus->GetCachedWidget())
+			{
+				return FReply::Handled().SetUserFocus(SlateWidgetToFocus.ToSharedRef());
+			}
+		}
+	}
+	
+	return Super::NativeOnFocusReceived(InGeometry, InFocusEvent);
 }
 
 void UWidget_ListEntry_Base::NativeOnListItemObjectSet(UObject* ListItemObject)

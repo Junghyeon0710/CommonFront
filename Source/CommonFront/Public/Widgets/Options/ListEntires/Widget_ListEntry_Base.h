@@ -23,8 +23,12 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On List Entry Widget Hovered"))
 	void K2_OnListEntryWidgetHovered(bool bWasHovered, bool bIsEntyWidgetStillSelected);
 	void NativeOnListEntryWidgetHovered(bool bWasHovered);
+	virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
 
 protected:
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Get Widget To Focus For Gamepad"))
+	UWidget* K2_GetWidgetToFocusForGamepad() const;
+	
 	// Begin IUserObjectListEntry Interface
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	//~ End IUserObjectListEntry Interface

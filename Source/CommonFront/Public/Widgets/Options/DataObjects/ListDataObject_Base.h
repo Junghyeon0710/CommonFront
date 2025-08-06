@@ -32,6 +32,7 @@ public:
 	virtual TArray<UListDataObject_Base*> GetAllChildListData() const { return TArray<UListDataObject_Base*>(); }
 	virtual bool HasAnyChildListData() const { return false; }
 
+	void SetShouldApplySettingsImmediately(bool bShouldApplyRightAway) { bShouldApplyChangeImmediately = bShouldApplyRightAway;}
 
 	virtual bool HasDefaultValue() const { return false; }
 	virtual bool CanResetBackToDefaultValue() const { return false; }
