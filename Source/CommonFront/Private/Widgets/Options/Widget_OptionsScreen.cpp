@@ -24,6 +24,9 @@ void UWidget_OptionsScreen::NativeOnInitialized()
 	RegisterUIActionBinding(FBindUIActionArgs(ICommonInputModule::GetSettings().GetDefaultBackAction(), true, FSimpleDelegate::CreateUObject(this, &ThisClass::OnBackBoundActionTriggered)));
 
 	TabListWidget_OptionsTabs->OnTabSelected.AddUniqueDynamic(this, &ThisClass::OnOptionsTabSelected);
+
+	CommonListView_OptionsList->OnItemIsHoveredChanged().AddUObject(this, &ThisClass::OnListViewItemHovered);
+	CommonListView_OptionsList->OnItemSelectionChanged().AddUObject(this, &ThisClass::OnListViewItemSelected);
 }
 
 void UWidget_OptionsScreen::NativeOnActivated()
@@ -89,4 +92,26 @@ void UWidget_OptionsScreen::OnOptionsTabSelected(FName TabID)
 		CommonListView_OptionsList->NavigateToIndex(0); //첫번쨰 항복으로 이동
 		CommonListView_OptionsList->SetSelectedIndex(0); // 첫번짹 아이템 선택
 	}
+}
+
+void UWidget_OptionsScreen::OnListViewItemHovered(UObject* InHoveredItem, bool bWasHovered)
+{
+	if (!InHoveredItem)
+	{
+		return;
+	}
+	const FString DebugString = CastChecked<UListDataObject_Base>(InHoveredItem)->GetDataDisplayName().ToString() +
+		TEXT(" was") + (bWasHovered ? TEXT("hovered") : TEXT("unhovered"));
+	Debug::Print(DebugString);
+}
+
+void UWidget_OptionsScreen::OnListViewItemSelected(UObject* InSelectedItem)
+{
+	if (!InSelectedItem)
+	{
+		return;
+	}
+
+	const FString DebugString = CastChecked<UListDataObject_Base>(InSelectedItem)->GetDataDisplayName().ToString() +TEXT(" was selected");
+	Debug::Print(DebugString);
 }
