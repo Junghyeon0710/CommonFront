@@ -3,6 +3,7 @@
 
 #include "Widgets/Options/ListEntires/Widget_ListEntry_String.h"
 
+#include "CommonInputSubsystem.h"
 #include "Widgets/Components/FrontendCommonButtonBase.h"
 #include "Widgets/Components/FrontendCommonRotator.h"
 #include "Widgets/Options/DataObjects/ListDataObject_String.h"
@@ -18,6 +19,7 @@ void UWidget_ListEntry_String::NativeOnInitialized()
 	{
 		SelectThisEntryWidget();
 	});
+	CommonRotator_AvailableOptions->OnRotatedEvent.AddUObject(this, &ThisClass::OnRotatorValueChanged);
 }
 
 void UWidget_ListEntry_String::OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject)
@@ -58,4 +60,24 @@ void UWidget_ListEntry_String::OnNextOptionButtonClicked()
 
 	SelectThisEntryWidget();
 	
+}
+
+void UWidget_ListEntry_String::OnRotatorValueChanged(int32 Value, bool bUserInitiated)
+{
+	if (!CachedOwningStringDataObject)
+	{
+		return;
+	}
+
+	UCommonInputSubsystem* CommonInputSubsystem = GetInputSubsystem();
+
+	if (!CommonInputSubsystem || !bUserInitiated)
+	{
+		return;
+	}
+
+	if (CommonInputSubsystem->GetCurrentInputType() == ECommonInputType::Gamepad)
+	{
+		CachedOwningStringDataObject->OnRotatorInitiatedValueChange(CommonRotator_AvailableOptions->GetSelectedText());
+	}
 }
