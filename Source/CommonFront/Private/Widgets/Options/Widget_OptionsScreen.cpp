@@ -96,6 +96,38 @@ void UWidget_OptionsScreen::OnOptionsTabSelected(FName TabID)
 		CommonListView_OptionsList->NavigateToIndex(0); //첫번쨰 항복으로 이동
 		CommonListView_OptionsList->SetSelectedIndex(0); // 첫번짹 아이템 선택
 	}
+
+	ResettableDataArray.Empty();
+
+	for (UListDataObject_Base* FoundListSourceItem : FoundListSourceItems)
+	{
+		if (!FoundListSourceItem)
+		{
+			continue;
+		}
+
+		if (!FoundListSourceItem->OnListDataModified.IsBoundToObject(this))
+		{
+			FoundListSourceItem->OnListDataModified.AddUObject(this,&ThisClass::OnListViewListDataModified);
+		}
+
+		if (FoundListSourceItem->CanResetBackToDefaultValue())
+		{
+			ResettableDataArray.AddUnique(FoundListSourceItem);
+		}
+	}
+
+	if (ResettableDataArray.IsEmpty())
+	{
+		RemoveActionBinding(ResetActionHandle);
+	}
+	else
+	{
+		if (!GetActionBindings().Contains(ResetActionHandle))
+		{
+			AddActionBinding(ResetActionHandle);
+		}
+	}
 }
 
 void UWidget_OptionsScreen::OnListViewItemHovered(UObject* InHoveredItem, bool bWasHovered)
@@ -143,4 +175,34 @@ FString UWidget_OptionsScreen::TryGetEntryWidgetClassName(UObject* InOwningListI
 	}
 
 	return TEXT("Entry Widget Not Valid");
+}
+
+void UWidget_OptionsScreen::OnListViewListDataModified(UListDataObject_Base* ModifiedData, EOptionsListDataModifyReason ModifiedReason)
+{
+	if (!ModifiedData)
+	{
+		return;
+	}
+
+	if (ModifiedData->CanResetBackToDefaultValue())
+	{
+		ResettableDataArray.AddUnique(ModifiedData);
+
+		if (!GetActionBindings().Contains(ResetActionHandle))
+		{
+			AddActionBinding(ResetActionHandle);
+		}
+	}
+	else
+	{
+		if (ResettableDataArray.Contains(ModifiedData))
+		{
+			ResettableDataArray.Remove(ModifiedData);
+		}
+	}
+
+	if (ResettableDataArray.IsEmpty())
+	{
+		RemoveActionBinding(ResetActionHandle);
+	}
 }
