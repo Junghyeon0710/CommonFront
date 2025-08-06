@@ -9,6 +9,7 @@
 class UCommonRichTextBlock;
 class UCommonLazyImage;
 class UCommonTextBlock;
+class UListDataObject_Base;
 /**
  * 
  */
@@ -17,6 +18,13 @@ class COMMONFRONT_API UWidget_OptionsDetailsView : public UUserWidget
 {
 	GENERATED_BODY()
 
+public:
+	void UpdateDetailsViewInfo(UListDataObject_Base* InDataObject,const FString& InEntryWidgetClassName = FString());
+	void ClearDetailsViewInfo();
+
+protected:
+	virtual void NativeOnInitialized() override;
+	
 
 private:
 
