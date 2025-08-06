@@ -14,5 +14,7 @@ namespace FrontEndGameplayTags
 	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Widget_OptionsScreen)
 	
 	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Widget_ConfirmScreen)
+
+	COMMONFRONT_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(Frontend_Image_TestImage)
 	
 }

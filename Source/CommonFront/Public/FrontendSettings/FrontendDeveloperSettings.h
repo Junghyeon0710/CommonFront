@@ -8,9 +8,8 @@
 #include "FrontendDeveloperSettings.generated.h"
 
 class UWidget_ActivatableBase;
-/**
- * 
- */
+class UTexture2D;
+
 UCLASS(config = Game, defaultconfig, meta = (DisplayName = "Frontend UI Settings"))
 class COMMONFRONT_API UFrontendDeveloperSettings : public UDeveloperSettings
 {
@@ -19,5 +18,8 @@ class COMMONFRONT_API UFrontendDeveloperSettings : public UDeveloperSettings
 public:
 	// ForceInlineRow : 같은줄에 나타내기 위해 강제로 
 	UPROPERTY(config, EditAnywhere, Category = "Widget Reference", meta = (ForceInlineRow, Categories = "Frontend.Widget"))
-	TMap<FGameplayTag, TSoftClassPtr<UWidget_ActivatableBase>> FrontendWidgetMap; 
+	TMap<FGameplayTag, TSoftClassPtr<UWidget_ActivatableBase>> FrontendWidgetMap;
+
+	UPROPERTY(config, EditAnywhere, Category = "Options Image Reference", meta = (ForceInlineRow, Categories = "Frontend.Image"))
+	TMap<FGameplayTag, TSoftObjectPtr<UTexture2D>> OptionsScreenSoftImageMap;
 };
