@@ -33,6 +33,8 @@ protected:
 
 	virtual  void OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedData, EOptionsListDataModifyReason ModifyReason);
 
+	void SelectThisEntryWidget();
+
 private:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidgetOptional, AllowPrivateAccess = "true"))
 	TObjectPtr<UCommonTextBlock> CommonText_SettingDisplayName;
