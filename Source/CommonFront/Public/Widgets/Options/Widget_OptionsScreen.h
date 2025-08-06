@@ -59,5 +59,7 @@ private:
 
 	UPROPERTY(Transient)
 	TArray<TObjectPtr<UListDataObject_Base>> ResettableDataArray;
+
+	bool bIsResettingData = false;
 };
 
