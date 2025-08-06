@@ -22,8 +22,10 @@ class COMMONFRONT_API UWidget_OptionsScreen : public UWidget_ActivatableBase
 
 protected:
 	virtual void NativeOnInitialized() override;
+	
 	virtual void NativeOnActivated() override;
 	virtual void NativeOnDeactivated() override;
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 private:
 	UOptionsDataRegistry* GetOrCreateDataRegistry();
 	
