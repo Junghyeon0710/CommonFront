@@ -3,11 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FrontendTypes/FrontendEnumTypes.h"
 #include "Widgets/Widget_ActivatableBase.h"
 #include "Widget_OptionsScreen.generated.h"
 
+class UListDataObject_Base;
+class UWidget_OptionsDetailsView;
 class UFrontendTabListWidgetBase;
 class UOptionsDataRegistry;
+class UFrontendCommonListView;
 /**
  * 
  */
@@ -18,7 +22,10 @@ class COMMONFRONT_API UWidget_OptionsScreen : public UWidget_ActivatableBase
 
 protected:
 	virtual void NativeOnInitialized() override;
+	
 	virtual void NativeOnActivated() override;
+	virtual void NativeOnDeactivated() override;
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 private:
 	UOptionsDataRegistry* GetOrCreateDataRegistry();
 	
@@ -28,10 +35,22 @@ private:
 	UFUNCTION()
 	void OnOptionsTabSelected(FName TabID);
 
+	void OnListViewItemHovered(UObject* InHoveredItem,bool bWasHovered);
+	void OnListViewItemSelected(UObject* InSelectedItem);
+
+	FString TryGetEntryWidgetClassName(UObject* InOwningListItem) const;
+
+	void OnListViewListDataModified(UListDataObject_Base* ModifiedData, EOptionsListDataModifyReason ModifiedReason);
+
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UFrontendTabListWidgetBase> TabListWidget_OptionsTabs;
-	
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UFrontendCommonListView> CommonListView_OptionsList;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UWidget_OptionsDetailsView> DetailsView_ListEntryInfo;
+	
 	UPROPERTY(Transient)
 	TObjectPtr<UOptionsDataRegistry> CreatedOwningDataRegistry;
 	
@@ -39,5 +58,10 @@ private:
 	FDataTableRowHandle ResetAction;
 
 	FUIActionBindingHandle ResetActionHandle;
+
+	UPROPERTY(Transient)
+	TArray<TObjectPtr<UListDataObject_Base>> ResettableDataArray;
+
+	bool bIsResettingData = false;
 };
 
