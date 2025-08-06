@@ -18,6 +18,12 @@ class COMMONFRONT_API UWidget_ListEntry_Base : public UCommonUserWidget, public 
 {
 	GENERATED_BODY()
 
+public:
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On List Entry Widget Hovered"))
+	void K2_OnListEntryWidgetHovered(bool bWasHovered, bool bIsEntyWidgetStillSelected);
+	void NativeOnListEntryWidgetHovered(bool bWasHovered);
+
 protected:
 	// Begin IUserObjectListEntry Interface
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
