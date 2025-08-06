@@ -25,6 +25,7 @@ public:
 protected:
 	FString GetDefaultValueAsString() const {return DefaultStringValue.GetValue(); }
 	
+	
 	TSharedPtr<FOptionsDataInteractionHelper> DataDynamicGetter;
 	TSharedPtr<FOptionsDataInteractionHelper> DataDynamicSetter;
 
