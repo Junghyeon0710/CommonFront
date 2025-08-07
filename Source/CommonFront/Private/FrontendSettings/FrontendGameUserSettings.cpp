@@ -6,6 +6,7 @@
 UFrontendGameUserSettings::UFrontendGameUserSettings()
 	: OverallVolume(1.f)
 	, MusicVolume(1.f)
+	, SoundFXVolume(1.f)
 		
 {
 }
@@ -120,4 +121,9 @@ void UFrontendGameUserSettings::SetOverallVolume(float InNewVolume)
 void UFrontendGameUserSettings::SetMusicVolume(float InMusicVolume)
 {
 	MusicVolume = InMusicVolume;
+}
+
+void UFrontendGameUserSettings::SetSoundFXVolume(float InSoundFXVolume)
+{
+	SoundFXVolume = InSoundFXVolume;
 }
