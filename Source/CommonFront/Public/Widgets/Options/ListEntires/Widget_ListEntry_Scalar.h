@@ -26,6 +26,9 @@ protected:
 private:
 	UFUNCTION()
 	void OnSliderValueChanged(float Value);
+
+	UFUNCTION()
+	void OnSliderMouseCaptureBegin();
 	
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UCommonNumericTextBlock> CommonNumeric_SettingValue;
