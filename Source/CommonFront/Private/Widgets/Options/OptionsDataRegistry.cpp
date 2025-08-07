@@ -141,12 +141,15 @@ void UOptionsDataRegistry::InitAudioCollectionTab()
 			OverallVolume->SetDataID(FName("OverallVolume"));
 			OverallVolume->SetDataDisplayName(FText::FromString(TEXT("Overall Volume")));
 			OverallVolume->SetDescriptionRichText(FText::FromString(TEXT("This is description for Overall Volume")));
-			OverallVolume->SetDisplayValueRange(TRange<float>(0.1f,1.f));
+			OverallVolume->SetDisplayValueRange(TRange<float>(0.f,1.f));
 			OverallVolume->SetOutputValueRange(TRange<float>(0.f,2.f));
 			OverallVolume->SetSliderStepSize(0.01f);
 			OverallVolume->SetDefaultValueFromString(LexToString(1.f));
 			OverallVolume->SetDisplayNumericType(ECommonNumericType::Percentage);
 			OverallVolume->SetNumberFormattingOptions(UListDataObject_Scalar::NoDecimal());
+			OverallVolume->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetOverallVolume));
+			OverallVolume->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetOverallVolume));
+			OverallVolume->SetShouldApplySettingsImmediately(true);
 			
 			VolumeCategoryCollection->AddChildListData(OverallVolume);
 		}

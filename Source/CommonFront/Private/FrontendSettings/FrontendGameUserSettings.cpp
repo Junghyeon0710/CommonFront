@@ -3,6 +3,11 @@
 
 #include "FrontendSettings/FrontendGameUserSettings.h"
 
+UFrontendGameUserSettings::UFrontendGameUserSettings()
+	: OverallVolume(1.f)
+{
+}
+
 UFrontendGameUserSettings* UFrontendGameUserSettings::Get()
 {
 	if (GEngine)
@@ -11,4 +16,11 @@ UFrontendGameUserSettings* UFrontendGameUserSettings::Get()
 	}
 
 	return nullptr;
+}
+
+void UFrontendGameUserSettings::SetOverallVolume(float InNewVolume)
+{
+	OverallVolume = InNewVolume;
+
+	// 여기서 로직 처리 해야됨
 }

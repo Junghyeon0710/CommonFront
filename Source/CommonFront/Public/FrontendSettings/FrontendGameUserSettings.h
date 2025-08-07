@@ -15,6 +15,8 @@ class COMMONFRONT_API UFrontendGameUserSettings : public UGameUserSettings
 	GENERATED_BODY()
 
 public:
+	UFrontendGameUserSettings();
+	
 	static UFrontendGameUserSettings* Get();
 
 	UFUNCTION()
@@ -22,7 +24,16 @@ public:
 
 	UFUNCTION()
 	void SetCurrentGameDifficulty(const FString& InNewDifficulty) {CurrentGameDifficulty = InNewDifficulty; }
+
+	UFUNCTION()
+	float GetOverallVolume() const { return OverallVolume; }
+
+	UFUNCTION()
+	void SetOverallVolume(float InNewVolume);
 private:
 	UPROPERTY(Config)
 	FString CurrentGameDifficulty;
+
+	UPROPERTY(Config)
+	float OverallVolume;
 };
