@@ -6,6 +6,7 @@
 #include "Widgets/Options/ListEntires/Widget_ListEntry_Base.h"
 #include "Widget_ListEntry_Scalar.generated.h"
 
+class UListDataObject_Scalar;
 class UAnalogSlider;
 class UCommonNumericTextBlock;
 /**
@@ -28,6 +29,9 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UAnalogSlider> AnalogSlider_SettingSlider;
+
+	UPROPERTY(Transient)
+	TObjectPtr<UListDataObject_Scalar> CachedOwningScalarDataObject;
 
 	
 };

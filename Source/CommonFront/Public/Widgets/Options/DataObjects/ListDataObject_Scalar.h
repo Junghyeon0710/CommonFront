@@ -24,7 +24,11 @@ public:
 	
 	static FCommonNumberFormattingOptions NoDecimal();
 	static FCommonNumberFormattingOptions WithDecimal(int32 NumFracDigit);
+
+	float GetCurrentValue() const;
 private:
+	float StringToFloat(const FString& InString) const;
+	
 	TRange<float> DisplayValueRange = TRange<float>(0.1f, 0.1f);
 	TRange<float> OutputValueRange = TRange<float>(0.1f, 0.1f);
 	float SliderStepSize = 0.1f;

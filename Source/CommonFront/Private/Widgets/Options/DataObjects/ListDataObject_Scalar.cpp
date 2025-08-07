@@ -18,3 +18,26 @@ FCommonNumberFormattingOptions UListDataObject_Scalar::WithDecimal(int32 NumFrac
 
 	return Options;
 }
+
+float UListDataObject_Scalar::GetCurrentValue() const
+{
+	if (DataDynamicGetter)
+	{
+		return FMath::GetMappedRangeValueClamped(
+			OutputValueRange,
+			DisplayValueRange,
+			StringToFloat(DataDynamicGetter->GetValueAsString())
+		);
+	}
+
+	return 0.f;
+}
+
+float UListDataObject_Scalar::StringToFloat(const FString& InString) const
+{
+	float OutConvertedValue = 0.f;
+	
+	LexFromString(OutConvertedValue, *InString);
+
+	return OutConvertedValue;
+}
