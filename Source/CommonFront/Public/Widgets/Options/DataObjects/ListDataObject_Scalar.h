@@ -22,7 +22,8 @@ public:
 	LIST_DATA_ACCESSOR(ECommonNumericType, DisplayNumericType)
 	LIST_DATA_ACCESSOR(FCommonNumberFormattingOptions, NumberFormattingOptions)
 	
-
+	static FCommonNumberFormattingOptions NoDecimal();
+	static FCommonNumberFormattingOptions WithDecimal(int32 NumFracDigit);
 private:
 	TRange<float> DisplayValueRange = TRange<float>(0.1f, 0.1f);
 	TRange<float> OutputValueRange = TRange<float>(0.1f, 0.1f);
