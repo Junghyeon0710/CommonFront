@@ -53,7 +53,7 @@ public:
 	bool GetUseHDRAudioMode() const { return bUseHDRAudioMode; }
 
 	UFUNCTION()
-	void SetbUseHDRAudioMode(bool InUseHDRAudioMode);
+	void SetUseHDRAudioMode(bool InUseHDRAudioMode);
 private:
 	UPROPERTY(Config)
 	FString CurrentGameDifficulty;

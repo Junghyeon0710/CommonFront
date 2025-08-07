@@ -134,7 +134,7 @@ void UFrontendGameUserSettings::SetAllowBackgroundAudio(bool InAllowBackgroundAu
 	bAllowBackgroundAudio = InAllowBackgroundAudio;
 }
 
-void UFrontendGameUserSettings::SetbUseHDRAudioMode(bool InUseHDRAudioMode)
+void UFrontendGameUserSettings::SetUseHDRAudioMode(bool InUseHDRAudioMode)
 {
 	bUseHDRAudioMode = InUseHDRAudioMode;
 }
