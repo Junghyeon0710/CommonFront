@@ -8,6 +8,7 @@ UFrontendGameUserSettings::UFrontendGameUserSettings()
 	, MusicVolume(1.f)
 	, SoundFXVolume(1.f)
 	, bAllowBackgroundAudio(false)
+	, bUseHDRAudioMode(false)
 {
 }
 
@@ -131,4 +132,9 @@ void UFrontendGameUserSettings::SetSoundFXVolume(float InSoundFXVolume)
 void UFrontendGameUserSettings::SetAllowBackgroundAudio(bool InAllowBackgroundAudio)
 {
 	bAllowBackgroundAudio = InAllowBackgroundAudio;
+}
+
+void UFrontendGameUserSettings::SetbUseHDRAudioMode(bool InUseHDRAudioMode)
+{
+	bUseHDRAudioMode = InUseHDRAudioMode;
 }
