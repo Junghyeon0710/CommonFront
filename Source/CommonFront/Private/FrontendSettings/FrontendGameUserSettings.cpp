@@ -5,6 +5,8 @@
 
 UFrontendGameUserSettings::UFrontendGameUserSettings()
 	: OverallVolume(1.f)
+	, MusicVolume(1.f)
+		
 {
 }
 
@@ -113,4 +115,9 @@ void UFrontendGameUserSettings::SetOverallVolume(float InNewVolume)
 	//
 	//
 	// 위의 모든 과정을 거치면 이제 볼륨을 전역적으로 제어할 수 있게 됩니다.
+}
+
+void UFrontendGameUserSettings::SetMusicVolume(float InMusicVolume)
+{
+	MusicVolume = InMusicVolume;
 }

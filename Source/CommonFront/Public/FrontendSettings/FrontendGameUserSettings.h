@@ -30,10 +30,19 @@ public:
 
 	UFUNCTION()
 	void SetOverallVolume(float InNewVolume);
+
+	UFUNCTION()
+	float GetMusicVolume() const { return MusicVolume; }
+
+	UFUNCTION()
+	void SetMusicVolume(float InMusicVolume);
 private:
 	UPROPERTY(Config)
 	FString CurrentGameDifficulty;
 
 	UPROPERTY(Config)
 	float OverallVolume;
+
+	UPROPERTY(Config)
+	float MusicVolume;
 };
