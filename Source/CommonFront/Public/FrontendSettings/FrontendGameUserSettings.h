@@ -38,7 +38,7 @@ public:
 	void SetMusicVolume(float InMusicVolume);
 
 	UFUNCTION()
-	float GetSoundFXVolume() const { return MusicVolume; }
+	float GetSoundFXVolume() const { return SoundFXVolume; }
 
 	UFUNCTION()
 	void SetSoundFXVolume(float InSoundFXVolume);
