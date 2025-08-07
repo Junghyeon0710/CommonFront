@@ -42,6 +42,12 @@ public:
 
 	UFUNCTION()
 	void SetSoundFXVolume(float InSoundFXVolume);
+
+	UFUNCTION()
+	bool GetAllowBackgroundAudio() const { return bAllowBackgroundAudio; }
+
+	UFUNCTION()
+	void SetAllowBackgroundAudio(bool InAllowBackgroundAudio);
 private:
 	UPROPERTY(Config)
 	FString CurrentGameDifficulty;
@@ -54,4 +60,7 @@ private:
 
 	UPROPERTY(Config)
 	float SoundFXVolume;
+
+	UPROPERTY(Config)
+	bool bAllowBackgroundAudio;
 };

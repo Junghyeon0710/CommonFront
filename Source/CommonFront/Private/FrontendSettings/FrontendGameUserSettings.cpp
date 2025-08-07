@@ -7,7 +7,7 @@ UFrontendGameUserSettings::UFrontendGameUserSettings()
 	: OverallVolume(1.f)
 	, MusicVolume(1.f)
 	, SoundFXVolume(1.f)
-		
+	, bAllowBackgroundAudio(false)
 {
 }
 
@@ -126,4 +126,9 @@ void UFrontendGameUserSettings::SetMusicVolume(float InMusicVolume)
 void UFrontendGameUserSettings::SetSoundFXVolume(float InSoundFXVolume)
 {
 	SoundFXVolume = InSoundFXVolume;
+}
+
+void UFrontendGameUserSettings::SetAllowBackgroundAudio(bool InAllowBackgroundAudio)
+{
+	bAllowBackgroundAudio = InAllowBackgroundAudio;
 }
