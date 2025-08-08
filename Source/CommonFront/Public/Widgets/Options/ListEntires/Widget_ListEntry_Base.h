@@ -38,6 +38,8 @@ protected:
 
 	virtual  void OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedData, EOptionsListDataModifyReason ModifyReason);
 
+	virtual void OnToggleEditableState(bool bIsEditable);
+	
 	void SelectThisEntryWidget();
 
 private:
