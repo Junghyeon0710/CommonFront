@@ -310,6 +310,32 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			DisplayCategoryCollection->AddChildListData(ScreenResolution);
 		}
 	}
+
+	//Graphics Category
+	{
+		UListDataObject_Collection* GraphicsCategoryCollection = NewObject<UListDataObject_Collection>();
+		GraphicsCategoryCollection->SetDataID(FName("GraphicsCategoryCollection"));
+		GraphicsCategoryCollection->SetDataDisplayName(FText::FromString(TEXT("Graphics")));
+
+		VideoTabCollection->AddChildListData(GraphicsCategoryCollection);
+
+		//Display Gamma
+		{
+			UListDataObject_Scalar* DisplayGamma = NewObject<UListDataObject_Scalar>();
+			DisplayGamma->SetDataID(FName("DisplayGamma"));
+			DisplayGamma->SetDataDisplayName(FText::FromString(TEXT("Brightness")));
+			DisplayGamma->SetDescriptionRichText(FText::FromString(TEXT("This is description for Brightness")));
+			DisplayGamma->SetDisplayValueRange(TRange<float>(0.f,1.f));
+			DisplayGamma->SetOutputValueRange(TRange<float>(1.7f,2.7f)); //언리얼은 기본 감마가 2.2이라 중간인 값으로 설정
+			DisplayGamma->SetDisplayNumericType(ECommonNumericType::Percentage);
+			DisplayGamma->SetNumberFormattingOptions(UListDataObject_Scalar::NoDecimal());
+			DisplayGamma->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetCurrentDisplayGamma));
+			DisplayGamma->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetCurrentDisplayGamma));
+			DisplayGamma->SetDefaultValueFromString(LexToString(2.2f));
+
+			GraphicsCategoryCollection->AddChildListData(DisplayGamma);
+		}
+	}
 	
 	RegisteredOptionsTabCollections.Add(VideoTabCollection);
 }

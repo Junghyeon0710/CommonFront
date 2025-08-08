@@ -54,6 +54,12 @@ public:
 
 	UFUNCTION()
 	void SetUseHDRAudioMode(bool InUseHDRAudioMode);
+
+	UFUNCTION()
+	float GetCurrentDisplayGamma() const;
+
+	UFUNCTION()
+	void SetCurrentDisplayGamma(float InNewGamma);
 private:
 	UPROPERTY(Config)
 	FString CurrentGameDifficulty;
@@ -72,4 +78,6 @@ private:
 
 	UPROPERTY(Config)
 	bool bUseHDRAudioMode;
+
+	
 };
