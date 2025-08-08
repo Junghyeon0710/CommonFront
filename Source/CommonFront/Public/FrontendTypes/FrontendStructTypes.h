@@ -55,4 +55,5 @@ private:
 	FString DisabledRichReason;
 	TOptional<FString> DisabledForcedStringValue;
 	
+	
 };

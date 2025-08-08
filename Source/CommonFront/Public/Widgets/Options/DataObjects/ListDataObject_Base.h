@@ -37,11 +37,19 @@ public:
 	virtual bool HasDefaultValue() const { return false; }
 	virtual bool CanResetBackToDefaultValue() const { return false; }
 	virtual bool TryResetBackToDefaultValue() { return false; }
+
+	// 레지스트리 옵션에서 호출
+	void AddEditCondition(const FOptionsDataEditConditionDescriptor& InEditCondition);
+
+	bool IsDataCurrentlyEditable();
 protected:
 	virtual void OnDataObjectInitialized();
 
 	virtual void NotifyListDataModified(UListDataObject_Base* ModifiedData, EOptionsListDataModifyReason ModifyReason = EOptionsListDataModifyReason::DirectlyModified);
-	
+
+	virtual bool CanSetToForcedStringValue(const FString& InForcedValue) const {return false;}
+
+	virtual void OnSetToForcedStringValue(const FString& InForcedValue) {}
 private:
 	FName DataID;
 	FText DataDisplayName;
@@ -54,5 +62,6 @@ private:
 
 	bool bShouldApplyChangeImmediately = false;
 	
-	
+	UPROPERTY(Transient)
+	TArray<FOptionsDataEditConditionDescriptor> EditConditionDescArray;
 };
