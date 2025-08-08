@@ -588,6 +588,25 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 
 			AdvancedGraphicsCategoryCollection->AddChildListData(VerticalSync);
 		}
+
+		//Frame Rate Limit
+		{
+			UListDataObject_String* FrameRateLimit = NewObject<UListDataObject_String>();
+			FrameRateLimit->SetDataID(FName("FrameRateLimit"));
+			FrameRateLimit->SetDataDisplayName(FText::FromString(TEXT("Frame Rate Limit")));
+			FrameRateLimit->SetDescriptionRichText(FText::FromString(TEXT("This is description for FrameRateLimit")));
+			FrameRateLimit->AddDynamicOptions(LexToString(30.f),FText::FromString(TEXT("30 FPS")));
+			FrameRateLimit->AddDynamicOptions(LexToString(60.f),FText::FromString(TEXT("60 FPS")));
+			FrameRateLimit->AddDynamicOptions(LexToString(90.f),FText::FromString(TEXT("90 FPS")));
+			FrameRateLimit->AddDynamicOptions(LexToString(120.f),FText::FromString(TEXT("120 FPS")));
+			FrameRateLimit->AddDynamicOptions(LexToString(0.f),FText::FromString(TEXT("No Limit")));
+			FrameRateLimit->SetDefaultValueFromString(LexToString(0.f));
+			FrameRateLimit->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetFrameRateLimit));
+			FrameRateLimit->SetDataDynamicSetter(MAKE_OPTIONS_DATA_CONTROL(SetFrameRateLimit));
+			FrameRateLimit->SetShouldApplySettingsImmediately(true);
+
+			AdvancedGraphicsCategoryCollection->AddChildListData(FrameRateLimit);
+		}
 	}
 	
 	RegisteredOptionsTabCollections.Add(VideoTabCollection);
