@@ -16,4 +16,8 @@ class COMMONFRONT_API UListDataObject_StringResolution : public UListDataObject_
 
 public:
 	void InitResolutionValues();
+
+protected:
+	virtual void OnDataObjectInitialized() override;
+	
 };
