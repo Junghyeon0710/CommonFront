@@ -19,6 +19,8 @@ class COMMONFRONT_API UListDataObject_Base : public UObject
 public:
 	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnListDataModifiedDelegate, UListDataObject_Base*, EOptionsListDataModifyReason);
 	FOnListDataModifiedDelegate OnListDataModified;
+	FOnListDataModifiedDelegate OnDependencyDataModified;
+	
 	
 	LIST_DATA_ACCESSOR(FName, DataID);
 	LIST_DATA_ACCESSOR(FText, DataDisplayName);
@@ -41,7 +43,11 @@ public:
 	// 레지스트리 옵션에서 호출
 	void AddEditCondition(const FOptionsDataEditConditionDescriptor& InEditCondition);
 
+	void AddEditDependencyData(UListDataObject_Base* InDependencyData);
+
 	bool IsDataCurrentlyEditable();
+
+	
 protected:
 	virtual void OnDataObjectInitialized();
 
@@ -50,6 +56,8 @@ protected:
 	virtual bool CanSetToForcedStringValue(const FString& InForcedValue) const {return false;}
 
 	virtual void OnSetToForcedStringValue(const FString& InForcedValue) {}
+
+	virtual void OnEditDependencyDataModified(UListDataObject_Base* ModifiedDependencyData, EOptionsListDataModifyReason ModifyReason);
 private:
 	FName DataID;
 	FText DataDisplayName;
