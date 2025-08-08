@@ -331,6 +331,7 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			DisplayGamma->SetDescriptionRichText(FText::FromString(TEXT("This is description for Brightness")));
 			DisplayGamma->SetDisplayValueRange(TRange<float>(0.f,1.f));
 			DisplayGamma->SetOutputValueRange(TRange<float>(1.7f,2.7f)); //언리얼은 기본 감마가 2.2이라 중간인 값으로 설정
+			DisplayGamma->SetSliderStepSize(0.01f);
 			DisplayGamma->SetDisplayNumericType(ECommonNumericType::Percentage);
 			DisplayGamma->SetNumberFormattingOptions(UListDataObject_Scalar::NoDecimal());
 			DisplayGamma->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetCurrentDisplayGamma));
@@ -370,6 +371,7 @@ void UOptionsDataRegistry::InitVideoCollectionTab()
 			ResolutionScale->SetDescriptionRichText(FText::FromString(TEXT("This is description for ResolutionScale")));
 			ResolutionScale->SetDisplayValueRange(TRange<float>(0.f,1.f));
 			ResolutionScale->SetOutputValueRange(TRange<float>(0.f,1.f));
+			ResolutionScale->SetSliderStepSize(0.01f);
 			ResolutionScale->SetDisplayNumericType(ECommonNumericType::Percentage);
 			ResolutionScale->SetNumberFormattingOptions(UListDataObject_Scalar::NoDecimal());
 			ResolutionScale->SetDataDynamicGetter(MAKE_OPTIONS_DATA_CONTROL(GetResolutionScaleNormalized));
