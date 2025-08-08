@@ -11,7 +11,7 @@
 
 void UWidget_ListEntry_Base::NativeOnListEntryWidgetHovered(bool bWasHovered)
 {
-	K2_OnListEntryWidgetHovered(bWasHovered, IsListItemSelected());
+	K2_OnListEntryWidgetHovered(bWasHovered, GetListItem() ? IsListItemSelected() : false);
 }
 
 FReply UWidget_ListEntry_Base::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)
