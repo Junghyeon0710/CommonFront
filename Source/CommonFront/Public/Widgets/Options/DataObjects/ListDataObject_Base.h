@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FrontendTypes/FrontendEnumTypes.h"
-#include "UObject/NoExportTypes.h"
+#include "FrontendTypes/FrontendStructTypes.h"
 #include "ListDataObject_Base.generated.h"
 
 #define LIST_DATA_ACCESSOR(DataType, PropertyName) \
@@ -19,6 +19,8 @@ class COMMONFRONT_API UListDataObject_Base : public UObject
 public:
 	DECLARE_MULTICAST_DELEGATE_TwoParams(FOnListDataModifiedDelegate, UListDataObject_Base*, EOptionsListDataModifyReason);
 	FOnListDataModifiedDelegate OnListDataModified;
+	FOnListDataModifiedDelegate OnDependencyDataModified;
+	
 	
 	LIST_DATA_ACCESSOR(FName, DataID);
 	LIST_DATA_ACCESSOR(FText, DataDisplayName);
@@ -37,11 +39,25 @@ public:
 	virtual bool HasDefaultValue() const { return false; }
 	virtual bool CanResetBackToDefaultValue() const { return false; }
 	virtual bool TryResetBackToDefaultValue() { return false; }
+
+	// 레지스트리 옵션에서 호출
+	void AddEditCondition(const FOptionsDataEditConditionDescriptor& InEditCondition);
+
+	void AddEditDependencyData(UListDataObject_Base* InDependencyData);
+
+	bool IsDataCurrentlyEditable();
+
+	
 protected:
 	virtual void OnDataObjectInitialized();
 
 	virtual void NotifyListDataModified(UListDataObject_Base* ModifiedData, EOptionsListDataModifyReason ModifyReason = EOptionsListDataModifyReason::DirectlyModified);
-	
+
+	virtual bool CanSetToForcedStringValue(const FString& InForcedValue) const {return false;}
+
+	virtual void OnSetToForcedStringValue(const FString& InForcedValue) {}
+
+	virtual void OnEditDependencyDataModified(UListDataObject_Base* ModifiedDependencyData, EOptionsListDataModifyReason ModifyReason);
 private:
 	FName DataID;
 	FText DataDisplayName;
@@ -54,5 +70,6 @@ private:
 
 	bool bShouldApplyChangeImmediately = false;
 	
-	
+	UPROPERTY(Transient)
+	TArray<FOptionsDataEditConditionDescriptor> EditConditionDescArray;
 };

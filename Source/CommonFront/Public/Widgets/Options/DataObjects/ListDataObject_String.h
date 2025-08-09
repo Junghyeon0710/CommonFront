@@ -23,6 +23,8 @@ protected:
 	virtual void OnDataObjectInitialized() override;
 	virtual bool CanResetBackToDefaultValue() const override;
 	virtual bool TryResetBackToDefaultValue() override;
+	virtual bool CanSetToForcedStringValue(const FString& InForcedValue) const override;
+	virtual void OnSetToForcedStringValue(const FString& InForcedValue) override;
 
 	bool TrySetDisplayTextFromStringValue(const FString& InStringValue);
 	
@@ -58,3 +60,49 @@ private:
 	const FString FalseString = TEXT("false");
 };
 
+UCLASS()
+class COMMONFRONT_API UListDataObject_StringEnum : public UListDataObject_String
+{
+	GENERATED_BODY()
+
+public:
+	template<typename EnumType>
+	void AddEnumOption(EnumType InEnumOption, const FText& InDisplayText)
+	{
+		const UEnum* StaticEnumOption = StaticEnum<EnumType>();
+		const FString ConvertedEnumString = StaticEnumOption->GetNameStringByValue(InEnumOption);
+
+		AddDynamicOptions(ConvertedEnumString, InDisplayText);
+	}
+
+	template<typename EnumType>
+	EnumType GetCurrentValueAsEnum() const
+	{
+		const UEnum* StaticEnumOption = StaticEnum<EnumType>();
+
+		return (EnumType)StaticEnumOption->GetValueByNameString(CurrentStringValue);
+	}
+
+	template<typename EnumType>
+	void SetDefaultValueFromEnumOption(EnumType InEnumOption)
+	{
+		const UEnum* StaticEnumOption = StaticEnum<EnumType>();
+		const FString ConvertedEnumString = StaticEnumOption->GetNameStringByValue(InEnumOption);
+
+		SetDefaultValueFromString(ConvertedEnumString);
+	}
+};
+
+UCLASS()
+class COMMONFRONT_API UListDataObject_StringInteger : public UListDataObject_String
+{
+	GENERATED_BODY()
+
+public:
+	void AddIntegerOption(int32 InIntegerValue, const FText& InDisplayText);
+
+protected:
+	virtual void OnDataObjectInitialized() override;
+	virtual void OnEditDependencyDataModified(UListDataObject_Base* ModifiedDependencyData, EOptionsListDataModifyReason ModifyReason) override;
+	
+};
