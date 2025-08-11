@@ -32,7 +32,8 @@ public class CommonFront : ModuleRules
 				"DeveloperSettings",
 				"CommonInput",
 				"InputCore",
-				"PropertyPath"
+				"PropertyPath",
+				"EnhancedInput"
 			}
 			);
 			
