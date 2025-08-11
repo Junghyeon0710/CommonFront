@@ -21,6 +21,7 @@ class COMMONFRONT_API UListDataObject_KeyRemap : public UListDataObject_Base
 public:
 	void InitKeyRemapData(UEnhancedInputUserSettings* InOwningInputUserSettings, UEnhancedPlayerMappableKeyProfile* InKeyProfile, ECommonInputType InDesiredInputKeyType,const FPlayerKeyMapping& InOwningPlayerKeyMapping);
 
+	FSlateBrush GetIconFromCurrentKey() const;
 private:
 	UPROPERTY(Transient)
 	TObjectPtr<UEnhancedInputUserSettings> CachedOwningInputUserSettings;
