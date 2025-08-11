@@ -22,7 +22,10 @@ public:
 	void InitKeyRemapData(UEnhancedInputUserSettings* InOwningInputUserSettings, UEnhancedPlayerMappableKeyProfile* InKeyProfile, ECommonInputType InDesiredInputKeyType,const FPlayerKeyMapping& InOwningPlayerKeyMapping);
 
 	FSlateBrush GetIconFromCurrentKey() const;
+	
 private:
+	FPlayerKeyMapping* GetOwningKeyMapping() const;
+	
 	UPROPERTY(Transient)
 	TObjectPtr<UEnhancedInputUserSettings> CachedOwningInputUserSettings;
 
