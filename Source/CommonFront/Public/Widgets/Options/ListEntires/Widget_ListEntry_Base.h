@@ -28,9 +28,13 @@ public:
 protected:
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Get Widget To Focus For Gamepad"))
 	UWidget* K2_GetWidgetToFocusForGamepad() const;
+
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Toggle Entry Widget Highlight State"))
+	void K2_OnToggleEntryWidgetHighlightState(bool bShouldHighlight) const;
 	
 	// Begin IUserObjectListEntry Interface
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
+	virtual void NativeOnItemSelectionChanged(bool bIsSelected) override;
 	virtual void NativeOnEntryReleased() override;
 	//~ End IUserObjectListEntry Interface
 

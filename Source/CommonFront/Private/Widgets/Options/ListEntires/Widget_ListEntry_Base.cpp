@@ -12,6 +12,15 @@
 void UWidget_ListEntry_Base::NativeOnListEntryWidgetHovered(bool bWasHovered)
 {
 	K2_OnListEntryWidgetHovered(bWasHovered, GetListItem() ? IsListItemSelected() : false);
+
+	if (bWasHovered)
+	{
+		K2_OnToggleEntryWidgetHighlightState(true);
+	}
+	else
+	{
+		K2_OnToggleEntryWidgetHighlightState( GetListItem() && IsListItemSelected() ? true : false);
+	}
 }
 
 FReply UWidget_ListEntry_Base::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)
@@ -38,6 +47,13 @@ void UWidget_ListEntry_Base::NativeOnListItemObjectSet(UObject* ListItemObject)
 	//SetVisibility(ESlateVisibility::Visible);
 
 	OnOwningListItemObjectSet(CastChecked<UListDataObject_Base>(ListItemObject));
+}
+
+void UWidget_ListEntry_Base::NativeOnItemSelectionChanged(bool bIsSelected)
+{
+	IUserObjectListEntry::NativeOnItemSelectionChanged(bIsSelected);
+
+	K2_OnToggleEntryWidgetHighlightState(bIsSelected);
 }
 
 void UWidget_ListEntry_Base::NativeOnEntryReleased()
