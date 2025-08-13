@@ -3,6 +3,7 @@
 
 #include "Subsystems/FrontendLoadingScreenSubsystem.h"
 
+#include "PreLoadScreenManager.h"
 #include "FrontendSettings/FrontendLoadingScreenSettings.h"
 
 bool UFrontendLoadingScreenSubsystem::ShouldCreateSubsystem(UObject* Outer) const
@@ -88,6 +89,11 @@ void UFrontendLoadingScreenSubsystem::OnMapPostLoaded(UWorld* LoadedWorld)
 
 void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 {
+	if (IsPreLoadScreenActive())
+	{
+		return;
+	}
+	
 	if (bIsCurrentlyLoadingMap)
 	{
 		
@@ -96,5 +102,16 @@ void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 	{
 		SetTickableTickType(ETickableTickType::Never);
 	}
+}
+
+bool UFrontendLoadingScreenSubsystem::IsPreLoadScreenActive() const
+{
+	if(FPreLoadScreenManager* PreLoadScreenManager = FPreLoadScreenManager::Get())
+	{
+		return PreLoadScreenManager->HasValidActivePreLoadScreen();
+	}
+	
+	return false;
+	
 }
 

@@ -33,7 +33,8 @@ public class CommonFront : ModuleRules
 				"CommonInput",
 				"InputCore",
 				"PropertyPath",
-				"EnhancedInput"
+				"EnhancedInput",
+				"PreLoadScreen"
 			}
 			);
 			
