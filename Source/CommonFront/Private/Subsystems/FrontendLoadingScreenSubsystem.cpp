@@ -93,8 +93,7 @@ void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 	{
 		return;
 	}
-	
-	if (bIsCurrentlyLoadingMap)
+	if (ShouldShowLoadingScreen())
 	{
 		
 	}
@@ -110,8 +109,48 @@ bool UFrontendLoadingScreenSubsystem::IsPreLoadScreenActive() const
 	{
 		return PreLoadScreenManager->HasValidActivePreLoadScreen();
 	}
-	
+
 	return false;
 	
+}
+
+bool UFrontendLoadingScreenSubsystem::ShouldShowLoadingScreen()
+{
+	const UFrontendLoadingScreenSettings* LoadingScreenSettings = GetDefault<UFrontendLoadingScreenSettings>();
+
+	if (GIsEditor && !LoadingScreenSettings->bShouldLoadingScreenInEditor)
+	{
+		return false;
+	}
+
+	if (CheckTheNeedToShowLoadingScreen())
+	{
+		GetGameInstance()->GetGameViewportClient()->bDisableWorldRendering = true;
+
+		return true;
+	}
+
+	GetGameInstance()->GetGameViewportClient()->bDisableWorldRendering = false;
+
+	const float CurrentTime = FPlatformTime::Seconds();
+
+	if (HoldLoadingScreenStartUpTime < 0.f)
+	{
+		HoldLoadingScreenStartUpTime = CurrentTime;
+	}
+
+	const float ElapsedTime = CurrentTime - HoldLoadingScreenStartUpTime;
+
+	if (ElapsedTime < LoadingScreenSettings->HoldLoadingScreenExtrasSeconds)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool UFrontendLoadingScreenSubsystem::CheckTheNeedToShowLoadingScreen() const
+{
+	return false;
 }
 
