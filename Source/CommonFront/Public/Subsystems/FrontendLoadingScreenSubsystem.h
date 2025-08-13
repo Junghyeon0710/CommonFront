@@ -27,5 +27,9 @@ public:
 
 private:
 	void OnMapPreLoaded(const FWorldContext& WorldContext, const FString& MpaName);
-	void OnMapPostLoaded(UWorld* LoadedWorld);	
+	void OnMapPostLoaded(UWorld* LoadedWorld);
+
+	void TryUpdateLoadingScreen();
+
+	bool bIsCurrentlyLoadingMap = false;
 };
