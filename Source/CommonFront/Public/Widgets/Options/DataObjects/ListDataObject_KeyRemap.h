@@ -24,11 +24,13 @@ public:
 	FSlateBrush GetIconFromCurrentKey() const;
 
 	void BindNewInputKey(const FKey& InNewKey);
-	
-private:
+
 	virtual bool HasDefaultValue() const override;
 	virtual bool CanResetBackToDefaultValue() const override;
 	virtual bool TryResetBackToDefaultValue() override;
+	
+private:
+
 	
 	FPlayerKeyMapping* GetOwningKeyMapping() const;
 	

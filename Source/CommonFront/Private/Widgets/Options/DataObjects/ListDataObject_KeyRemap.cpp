@@ -65,7 +65,7 @@ bool UListDataObject_KeyRemap::HasDefaultValue() const
 
 bool UListDataObject_KeyRemap::CanResetBackToDefaultValue() const
 {
-	return HasDefaultValue && GetOwningKeyMapping()->IsCustomized();
+	return HasDefaultValue() && GetOwningKeyMapping()->IsCustomized();
 }
 
 bool UListDataObject_KeyRemap::TryResetBackToDefaultValue()
@@ -73,9 +73,7 @@ bool UListDataObject_KeyRemap::TryResetBackToDefaultValue()
 	if (CanResetBackToDefaultValue())
 	{
 		check(CachedOwningInputUserSettings);
-		
 		GetOwningKeyMapping()->ResetToDefault();
-
 		CachedOwningInputUserSettings->SaveSettings();
 		NotifyListDataModified(this, EOptionsListDataModifyReason::ResetToDefault);
 

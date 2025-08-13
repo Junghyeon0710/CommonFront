@@ -57,11 +57,39 @@ void UWidget_ListEntry_KeyRemap::OnRemapKeyButtonClicked()
 		});
 }
 
-void UWidget_ListEntry_KeyRemap::OnResetKeyBindingButtonClicked()
+void UWidget_ListEntry_KeyRemap::OnResetKeyBindingButtonClicked() 
 {
 	SelectThisEntryWidget();
 
+	if (!CachedOwningKeyRemapDataObject)
+	{
+		return;
+	}
 	
+	if (!CachedOwningKeyRemapDataObject->CanResetBackToDefaultValue())
+	{
+		UFrontendUISubsystem::Get(this)->PushConfirmScreenToModalStackAynsc(
+			EConfirmScreenType::Ok,
+			FText::FromString(TEXT("Reset Key Mapping")),
+			FText::FromString(TEXT("The key binding for ") + CachedOwningKeyRemapDataObject->GetDataDisplayName().ToString() + TEXT(" is already set to default.")),
+			[](EConfirmScreenButtonType ClickedButton){}
+		);
+
+		return;
+	}
+
+	UFrontendUISubsystem::Get(this)->PushConfirmScreenToModalStackAynsc(
+		EConfirmScreenType::YesNo,
+		FText::FromString(TEXT("Reset Key Mapping")),
+		FText::FromString(TEXT("Are you sure you want to reset the key binding for ") + CachedOwningKeyRemapDataObject->GetDataDisplayName().ToString() + TEXT(" ?")),
+		[this](EConfirmScreenButtonType ClickedButton)
+		{
+			if (ClickedButton == EConfirmScreenButtonType::Confirmed)
+			{
+				CachedOwningKeyRemapDataObject->TryResetBackToDefaultValue();
+			}
+		}
+	);
 }
 
 void UWidget_ListEntry_KeyRemap::OnKeyToRemapPressed(const FKey& PressedKey)
