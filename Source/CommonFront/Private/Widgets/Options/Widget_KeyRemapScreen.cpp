@@ -135,8 +135,31 @@ void UWidget_KeyRemapScreen::NativeOnDeactivated()
 
 void UWidget_KeyRemapScreen::OnValidKeyPressedDetected(const FKey& PressedKey)
 {
+	RequestDeactivateWidget([this, PressedKey]()
+	{
+		OnKeyRemapScreenKeyPressed.ExecuteIfBound(PressedKey);
+	});
 }
 
 void UWidget_KeyRemapScreen::OnKeySelectCanceled(const FString& CanceledReason)
 {
+	RequestDeactivateWidget([this, CanceledReason]()
+	{
+		OnKeyRemapScreenKeySelectCanceled.ExecuteIfBound(CanceledReason);
+	});
+}
+
+void UWidget_KeyRemapScreen::RequestDeactivateWidget(TFunction<void()> PreDeactivateCallback)
+{
+	//Delay a tick to make sure the input is processed correctly
+	FTSTicker::GetCoreTicker().AddTicker(
+		FTickerDelegate::CreateLambda([this, PreDeactivateCallback](float DeltaTime)
+		{
+			PreDeactivateCallback();
+
+			DeactivateWidget();
+
+			return false;
+		}
+		));
 }
