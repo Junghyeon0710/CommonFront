@@ -84,23 +84,9 @@ void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreen
 
 	for (const FConfirmScreenButtonInfo& AvailableButtonInfo : InScreenInfoObject->AvailableScreenButtons)
 	{
-		FDataTableRowHandle InputActionRowHandle;
-		switch (AvailableButtonInfo.ConfirmScreenButtonType)
-		{
-		case EConfirmScreenButtonType::Cancelled:
-				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultBackAction();
-				break;
-		case EConfirmScreenButtonType::Closed:
-				InputActionRowHandle = ICommonInputModule::GetSettings().GetDefaultBackAction();
-			break;
-			default:
-				break;
-		}
-		
 		UFrontendCommonButtonBase* AddedButton = DynamicEntryBox_Buttons->CreateEntry<UFrontendCommonButtonBase>();
 		AddedButton->SetButtonText(AvailableButtonInfo.ButtonTextToDisplay);
 	//	AddedButton->SetTriggeredInputAction(InputActionRowHandle); //버튼을 눌렀을 때 어떤 키를 누른 것처럼 처리할지 정함
-		AddedButton->SetTriggeringInputAction(InputActionRowHandle); // 	어떤 키(입력)가 이 버튼을 눌리게 할지 정함 ex (게임패드 O 버튼 누르면 UI 버튼 작동
 		AddedButton->OnClicked().AddLambda([ClickedButtonCallback, AvailableButtonInfo, this]()
 		{
 			ClickedButtonCallback(AvailableButtonInfo.ConfirmScreenButtonType);
@@ -109,8 +95,15 @@ void UWidget_ConfirmScreen::InitConfirmScreen(UConfirmScreenInfoObject* InScreen
 		});
 	}
 
+	
+}
+
+UWidget* UWidget_ConfirmScreen::NativeGetDesiredFocusTarget() const
+{
 	if (DynamicEntryBox_Buttons->GetNumEntries() != 0)
 	{
 		DynamicEntryBox_Buttons->GetAllEntries().Last()->SetFocus();
 	}
+	
+	return Super::NativeGetDesiredFocusTarget();
 }

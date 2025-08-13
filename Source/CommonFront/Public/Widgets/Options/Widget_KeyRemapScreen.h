@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonInputTypeEnum.h"
 #include "Widgets/Widget_ActivatableBase.h"
 #include "Widget_KeyRemapScreen.generated.h"
 
 class UCommonRichTextBlock;
-class FkeyRemapScreenInputPreprocessor;
+class FKeyRemapScreenInputPreprocessor;
 /**
  * 
  */
@@ -16,13 +17,29 @@ class COMMONFRONT_API UWidget_KeyRemapScreen : public UWidget_ActivatableBase
 {
 	GENERATED_BODY()
 
+public:
+	void SetDesiredInputTypeToFilter(ECommonInputType InDesiredInputType);
+
+	DECLARE_DELEGATE_OneParam(FOnKeyRemapScreenKeyPressedDelegate, const FKey& /*PressedKey*/);
+	FOnKeyRemapScreenKeyPressedDelegate OnKeyRemapScreenKeyPressed;
+
+	DECLARE_DELEGATE_OneParam(FOnKeyRemapScreenKeySelectCanceledDelegate, const FString& /*CanceledReason*/)
+	FOnKeyRemapScreenKeySelectCanceledDelegate OnKeyRemapScreenKeySelectCanceled;
+	
 protected:
 	virtual void NativeOnActivated() override;
 	virtual void NativeOnDeactivated() override;
 	
 private:
+	void OnValidKeyPressedDetected(const FKey& PressedKey);
+	void OnKeySelectCanceled(const FString& CanceledReason);
+
+	void RequestDeactivateWidget(TFunction<void()> PreDeactivateCallback);
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UCommonRichTextBlock> CommonRichText_RemapMessage;
 
-	TSharedPtr<FkeyRemapScreenInputPreprocessor> CachedInputPreprocessor;
+	TSharedPtr<FKeyRemapScreenInputPreprocessor> CachedInputPreprocessor;
+
+	ECommonInputType CachedDesiredInputType;
 };

@@ -22,8 +22,16 @@ public:
 	void InitKeyRemapData(UEnhancedInputUserSettings* InOwningInputUserSettings, UEnhancedPlayerMappableKeyProfile* InKeyProfile, ECommonInputType InDesiredInputKeyType,const FPlayerKeyMapping& InOwningPlayerKeyMapping);
 
 	FSlateBrush GetIconFromCurrentKey() const;
+
+	void BindNewInputKey(const FKey& InNewKey);
+
+	virtual bool HasDefaultValue() const override;
+	virtual bool CanResetBackToDefaultValue() const override;
+	virtual bool TryResetBackToDefaultValue() override;
 	
 private:
+
+	
 	FPlayerKeyMapping* GetOwningKeyMapping() const;
 	
 	UPROPERTY(Transient)
@@ -37,4 +45,7 @@ private:
 	FName CachedOwningMappingName;
 
 	EPlayerMappableKeySlot CachedOwningMappableKeySlot;
+
+public:
+	FORCEINLINE ECommonInputType GetDesiredInputType() const { return CachedDesiredInputType;}
 };
