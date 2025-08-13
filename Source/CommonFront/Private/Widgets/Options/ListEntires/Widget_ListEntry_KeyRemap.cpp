@@ -7,6 +7,7 @@
 #include "CommonFront/FrontendGameplayTags.h"
 #include "Subsystems/FrontendUISubsystem.h"
 #include "Widgets/Components/FrontendCommonButtonBase.h"
+#include "Widgets/Options/Widget_KeyRemapScreen.h"
 #include "Widgets/Options/DataObjects/ListDataObject_KeyRemap.h"
 
 void UWidget_ListEntry_KeyRemap::NativeOnInitialized()
@@ -38,9 +39,17 @@ void UWidget_ListEntry_KeyRemap::OnRemapKeyButtonClicked()
 {
 	UFrontendUISubsystem::Get(this)->PushSoftWidgetToStackAynsc(FrontEndGameplayTags::Frontend_WidgetStack_Modal,
 		UFrontendFunctionLibrary::GetFrontendSoftWidgetClassByTag(FrontEndGameplayTags::Frontend_Widget_KeyRemapScreen),
-		[](EAsyncPushWidgetState PushStage, UWidget_ActivatableBase* PushedWidget)
+		[this](EAsyncPushWidgetState PushStage, UWidget_ActivatableBase* PushedWidget)
 		{
-			
+			if (PushStage == EAsyncPushWidgetState::OnCreatedBeforePush)
+			{
+				UWidget_KeyRemapScreen* CreatedKeyRemapScreen = CastChecked<UWidget_KeyRemapScreen>(PushedWidget);
+
+				if (CachedOwningKeyRemapDataObject)
+				{
+					CreatedKeyRemapScreen->SetDesiredInputTypeToFilter(CachedOwningKeyRemapDataObject->GetDesiredInputType());	
+				}
+			}
 		});
 }
 

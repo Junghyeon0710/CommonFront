@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "CommonInputTypeEnum.h"
 #include "Widgets/Widget_ActivatableBase.h"
 #include "Widget_KeyRemapScreen.generated.h"
 
@@ -16,6 +17,9 @@ class COMMONFRONT_API UWidget_KeyRemapScreen : public UWidget_ActivatableBase
 {
 	GENERATED_BODY()
 
+public:
+	void SetDesiredInputTypeToFilter(ECommonInputType InDesiredInputType);
+	
 protected:
 	virtual void NativeOnActivated() override;
 	virtual void NativeOnDeactivated() override;
@@ -25,4 +29,6 @@ private:
 	TObjectPtr<UCommonRichTextBlock> CommonRichText_RemapMessage;
 
 	TSharedPtr<FkeyRemapScreenInputPreprocessor> CachedInputPreprocessor;
+
+	ECommonInputType CachedDesiredInputType;
 };
