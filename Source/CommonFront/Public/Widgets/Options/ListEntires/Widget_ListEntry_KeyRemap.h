@@ -20,7 +20,7 @@ protected:
 	virtual void NativeOnInitialized() override;
 	
 	virtual void OnOwningListItemObjectSet(UListDataObject_Base* InOwningListDataObject) override;
-	virtual void OnOwningDependencyDataObjectModified(UListDataObject_Base* OwningModifiedDependencyData, EOptionsListDataModifyReason ModifyReason) override;
+	virtual void OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedDependencyData, EOptionsListDataModifyReason ModifyReason) override;
 
 private:
 	void OnRemapKeyButtonClicked();

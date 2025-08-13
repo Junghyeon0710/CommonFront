@@ -27,7 +27,7 @@ void UWidget_ListEntry_KeyRemap::OnOwningListItemObjectSet(UListDataObject_Base*
 	CommonButton_RemapKey->SetButtonDisplayImage(CachedOwningKeyRemapDataObject->GetIconFromCurrentKey());
 }
 
-void UWidget_ListEntry_KeyRemap::OnOwningDependencyDataObjectModified(UListDataObject_Base* OwningModifiedDependencyData, EOptionsListDataModifyReason ModifyReason)
+void UWidget_ListEntry_KeyRemap::OnOwningListDataObjectModified(UListDataObject_Base* OwningModifiedDependencyData, EOptionsListDataModifyReason ModifyReason)
 {
 	if (CachedOwningKeyRemapDataObject)
 	{
@@ -61,6 +61,10 @@ void UWidget_ListEntry_KeyRemap::OnResetKeyBindingButtonClicked()
 
 void UWidget_ListEntry_KeyRemap::OnKeyToRemapPressed(const FKey& PressedKey)
 {
+	if (CachedOwningKeyRemapDataObject)
+	{
+		CachedOwningKeyRemapDataObject->BindNewInputKey(PressedKey);
+	}
 }
 
 void UWidget_ListEntry_KeyRemap::OnKeyRemapCanceled(const FString& CanceledReason)
