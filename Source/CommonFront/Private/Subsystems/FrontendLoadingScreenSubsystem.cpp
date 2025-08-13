@@ -95,7 +95,7 @@ void UFrontendLoadingScreenSubsystem::TryUpdateLoadingScreen()
 	}
 	if (ShouldShowLoadingScreen())
 	{
-		
+		OnLoadingReasonUpdated.Broadcast(CurrentLoadingReason);
 	}
 	else
 	{
@@ -130,6 +130,8 @@ bool UFrontendLoadingScreenSubsystem::ShouldShowLoadingScreen()
 		return true;
 	}
 
+	CurrentLoadingReason = TEXT("Waiting for Texture Streaming");
+
 	GetGameInstance()->GetGameViewportClient()->bDisableWorldRendering = false;
 
 	const float CurrentTime = FPlatformTime::Seconds();
@@ -149,8 +151,40 @@ bool UFrontendLoadingScreenSubsystem::ShouldShowLoadingScreen()
 	return false;
 }
 
-bool UFrontendLoadingScreenSubsystem::CheckTheNeedToShowLoadingScreen() const
+bool UFrontendLoadingScreenSubsystem::CheckTheNeedToShowLoadingScreen()
 {
+	if (bIsCurrentlyLoadingMap)
+	{
+		CurrentLoadingReason = TEXT("Loading Level");
+		
+		return true;
+	}
+
+	UWorld* OwningWorld = GetGameInstance()->GetWorld();
+
+	if (!OwningWorld)
+	{
+		CurrentLoadingReason = TEXT("Initializing World");
+
+		return true;
+	}
+
+	if (!OwningWorld->HasBegunPlay())
+	{
+		CurrentLoadingReason = TEXT("World hasn't Begun play yet");
+
+		return true;
+	}
+
+	if (!OwningWorld->GetFirstPlayerController())
+	{
+		CurrentLoadingReason = TEXT("World hasn't FirstPlayerController");
+
+		return true;
+	}
+
+	
+	
 	return false;
 }
 
