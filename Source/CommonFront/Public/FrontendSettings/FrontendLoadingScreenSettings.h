@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(config = Engine, DefaultConfig)
+UCLASS(config = Game, DefaultConfig)
 class COMMONFRONT_API UFrontendLoadingScreenSettings : public UDeveloperSettings
 {
 	GENERATED_BODY()
