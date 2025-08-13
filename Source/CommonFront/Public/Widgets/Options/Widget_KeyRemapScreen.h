@@ -25,6 +25,9 @@ protected:
 	virtual void NativeOnDeactivated() override;
 	
 private:
+	void OnValidKeyPressedDetected(const FKey& PressedKey);
+	void OnKeySelectCanceled(const FString& CanceledReason);
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UCommonRichTextBlock> CommonRichText_RemapMessage;
 
