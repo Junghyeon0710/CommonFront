@@ -43,6 +43,8 @@ private:
 	bool CheckTheNeedToShowLoadingScreen();
 
 	void TryDisplayLoadingScreenIfNone();
+
+	void TryRemoveLoadingScreen();
 	
 	bool bIsCurrentlyLoadingMap = false;
 
