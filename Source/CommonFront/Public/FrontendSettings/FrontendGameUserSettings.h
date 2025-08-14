@@ -76,7 +76,7 @@ private:
 	UPROPERTY(Config)
 	bool bAllowBackgroundAudio;
 
-	UPROPERTY(Config)
+	UPROPERTY(Config, EditAnywhere)
 	bool bUseHDRAudioMode;
 
 	
