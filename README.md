@@ -2,7 +2,7 @@
 
 <br>
 
-Common UI 기반으로 메뉴/시작화면/옵션 등을 일관성 있게 구성된 플러그인입니다.
+Common UI 기반으로 메뉴/시작화면/옵션 등을 일관성 있게 구성된 플러그인
 
 
 - 지원 버전 5.6
@@ -20,7 +20,60 @@ Common UI 기반으로 메뉴/시작화면/옵션 등을 일관성 있게 구성
 <br>
 
 ## 특징
-- 사계절 제공
-- 태양 움직임 기능 및 눈, 비 나이아가라 샘플 제공
-- 시간 자유롭게 설정 가능
-- 밤, 낮 구현
+- **로비 시퀀스 추가** : 시작 시 자동 재생 지원
+- **4가지 레이아웃 스택 제공** : Front End, Game HUD, Game Menu, Modal
+- **레이아웃 템플릿 제공** : 위젯 레이아웃 일관성 유지 가능
+- **블루프린트 비동기 액션 제공**  
+  - 레이아웃 스택에 위젯을 쉽게 푸시 가능  
+  - 모달창을 쉽게 푸시 가능
+ 
+<br>
+<br>
+
+## 사용법
+
+### 플러그인 활성화
+<img width="1840" height="179" alt="Image" src="https://github.com/user-attachments/assets/c89189ea-3e34-41fc-a82f-c7998bd065b4" />
+
+- **Common Front** 플러그인을 활성화합니다.
+
+---
+
+<br>
+
+
+### 로비 시퀀스 배치
+1. 원하는 로비 레벨에서  
+   `Plugins/CommonFront Content/Maps/Sequence` 경로에 있는 **SEQ_Lobby**를 배치합니다.
+<img width="1263" height="362" alt="Image" src="https://github.com/user-attachments/assets/540d7ac9-94cd-4e3f-9d5d-5f60d4f41cf7" />
+
+
+<br>
+<br>
+<br>
+
+
+2. 배치 후 시퀀스를 열고 필요한 값으로 수정합니다.
+<img width="2105" height="677" alt="Image" src="https://github.com/user-attachments/assets/c1d8b304-8ab0-48b8-8915-5a803dcd30b5" />
+
+---
+
+<br>
+
+### 로비 레벨 게임모드 변경
+<img width="713" height="475" alt="Image" src="https://github.com/user-attachments/assets/54417c4f-3bf2-4115-80fe-818b4316b5ab" />
+
+- 해당 레벨에 월드 세팅에 가서 게임모드를 **BP_FrontendGameMode**로 변경해주세요.
+
+<br>
+
+---
+
+### 로딩 설정
+<img width="2488" height="1355" alt="Image" src="https://github.com/user-attachments/assets/81eafc46-5e5d-43df-85bb-fd531e85c97e" />
+
+- `Project Settings` → `Game` → `FrontendLoadingScreenSettings`에서 원하는 값으로 수정합니다.
+- **SoftLoadingScreenWidgetClass**: 로딩 화면에 사용할 위젯 클래스
+- **HoldLoadingScreenExtrasSeconds**: 로딩 화면이 유지되는 시간(초)
+- **bShouldLoadingScreenInEditor**: 에디터 실행 시 로딩 화면 표시 여부
+
