@@ -6,7 +6,7 @@ Common UI 기반으로 메뉴/시작화면/옵션 등을 일관성 있게 구성
 
 
 - 지원 버전 5.6
-- [업데이트 노트](https://github.com/Junghyeon0710/DynamicWeather/wiki/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EB%85%B8%ED%8A%B8)
+- [업데이트 노트](https://github.com/Junghyeon0710/CommonFront/wiki/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%EB%85%B8%ED%8A%B8)
 
 <br>
 
