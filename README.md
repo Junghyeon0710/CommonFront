@@ -10,6 +10,11 @@ Common UI 기반으로 메뉴/시작화면/옵션 등을 일관성 있게 구성
 
 <br>
 
+## 영상
+[![Video Thumbnail](https://img.youtube.com/vi/WORAwxbjbAg/0.jpg)](https://www.youtube.com/watch?v=WORAwxbjbAg)
+
+<br>
+
 ## 설치
 1. `zip` 파일 다운로드
 2. 압축후 `Plugins` 폴더에 `CommonFront`로 넣기
